@@ -1,0 +1,869 @@
+/* Base Layout */
+.dashboardContainer {
+    display: flex;
+    background-color: var(--color-background);
+    color: var(--color-text);
+    height: 100vh;
+    margin: 0;
+    width: 100%;
+}
+.active {
+    font-weight: bold;
+    color: #3498db; /* Highlight color */
+    border-left: 4px solid #3498db;
+    padding-left: 16px;
+}
+
+/* 🔹 Sidebar */
+.sidebar {
+    width: 225px;
+    background-color: #2c3e50; /* Dark theme */
+    color: white;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height: 100vh;
+    z-index: 1100;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+/* 🔹 Collapsed Sidebar (Only Icons) */
+.sidebar.collapsed {
+    width: 80px;
+    min-width: 80px;
+    
+}
+
+/* 🔹 Sidebar Toggle Button */
+.sidebarToggle {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    top: 200px; 
+    left: 200px; /* Positioned inside expanded sidebar */
+    width: 100px;
+    height: 40px;
+    position: absolute;
+    border-radius: 5px;
+}  
+.sidebarTitle {
+    font-family: 'Apple Chancery', cursive;
+    font-size: 1rem; /* Adjust the font size */
+    font-weight: bold; /* Make it bold */
+    background: linear-gradient(45deg, #ff8c00, #163250); /* Gradient text effect */
+    text-transform: uppercase; /* Uppercase styling */
+    letter-spacing: 1px; /* Add spacing for a sleek look */
+    padding: 12px 18px; /* Padding for spacing */
+    margin-bottom: 0px; /* Space below the title */
+    text-align: center;
+    display: block; /* Ensures the title takes full width */
+    width: 100%;
+
+}
+/* 🔹 Ensure Sidebar Toggle is Always Visible */
+.topBar .sidebarToggle {
+    position: absolute;
+    right: 85%; /* Adjust to be beside the logo */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.topBar .sidebarToggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #f1c40f; /* Gold color when hovering */
+    border-radius: 5px;
+}
+
+.sidebar.collapsed + .topBar .sidebarToggle {
+    left: 40px; /* Adjust so it doesn’t disappear */
+}
+.sidebar ul li {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 🔹 Prevent Text Overlap */
+.sidebar.collapsed ul li span {
+    display: none;
+}
+
+/* 🔹 Adjust Main Content to Shift */
+.main-content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* 🔹 When Sidebar is Collapsed, Shift Main Content */
+.sidebar.collapsed + .main-content {
+    margin-left: 80px;
+}
+
+/* 🔹 Prevent Horizontal Scroll */
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+    margin-top: 20px;
+}
+body {
+    overflow-x: hidden;
+}
+/* 🔹 Fix Sidebar Icon Hover Effect */
+.sidebar nav ul li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* 🔹 Sidebar Hover Effect */
+.sidebar nav ul li:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+    border-radius: 5px;
+}
+
+/* 🔹 Active Icon */
+.sidebar nav ul li.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 40px solid #f1c40f;
+}
+
+/* 🔹 Fix Icon Alignment */
+.sidebar nav ul li a svg {
+    font-size: 1.5rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 🔹 Fix Hover Effect for Icons */
+.sidebar nav ul li a:hover svg {
+    transform: scale(1.1);
+    color: #f1c40f;
+}
+
+/* 🔹 Sidebar Collapsed Mode Fix */
+.sidebar.collapsed nav ul li {
+    justify-content: center;
+}
+
+/* 🔹 Sidebar Navigation */
+.sidebar nav {
+    width: 100%;
+    padding: 1px;
+    margin: 5px;
+}
+
+.sidebar nav ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+    width: 100%;
+}
+
+/* 🔹 Sidebar Items */
+.sidebar nav ul li {
+    padding: 16.9px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    font-size: 0.5rem;  /* 🔹 Default font size */
+    font-family: "Poppins", sans-serif; /* 🔹 Font Family */
+    font-weight: 500; /* 🔹 Medium weight */
+    text-transform: capitalize; /* 🔹 Capitalize first letter */
+}
+
+
+/* 🔹 Hide Text When Collapsed */
+.sidebar.collapsed nav ul li {
+    justify-content: center;
+    gap: 0;
+}
+
+.sidebar.collapsed nav ul li a {
+    text-align: center;
+}
+
+/* 🔹 Sidebar Icons Text */
+.sidebar nav ul li a {
+    display: flex;
+    align-items: center;
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+    font-size: 0.8rem; /* 🔹 Adjusted for better visibility */
+    font-family: "Poppins", sans-serif;
+    font-weight: 400; /* 🔹 Normal weight for links */
+}
+
+/* 🔹 Sidebar Icons Spacing */
+.sidebar nav ul li a svg {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* 🔹 Text Visibility */
+.sidebar:not(.collapsed) nav ul li a span {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.sidebar.collapsed nav ul li a span {
+    display: none;
+}
+
+/* 🔹 Hover Effects */
+.sidebar nav ul li:hover {
+    background-color: rgba(255, 255, 255, 0.15); /* Subtle glow effect */
+    transform: scale(1.05);
+    border-radius: 5px; /* Soft rounded effect */
+}
+
+
+/* 🔹 Active Link */
+.sidebar nav ul li.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-left: 4px solid #f1c40f;
+}
+
+/* 🔹 Icon Hover Effect */
+.sidebar nav ul li a:hover svg {
+    transform: rotate(10deg) scale(1.1);
+    color: #f1c40f;
+}
+/* Sidebar Header */
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    background-color: #E0F2F1; /* Light teal background */
+    padding: 10px 15px;
+    border-radius: 10px; /* Rounded corners */
+    width: 90%; /* Ensure it fits nicely */
+    margin: 10px auto; /* Center it */
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Soft shadow effect */
+    padding-bottom: 10px; /* Adds space below the title */
+    text-align: center;
+}
+
+/* 🔹 Logo Styling */
+.sidebarLogo {
+    width: 120px; /* Default size */
+    height: auto;
+    display: block;
+    margin-bottom: 5px; /* Space between logo and text */
+    filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.3)); /* Adds a soft shadow */
+    transition: width 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Smaller Logo When Sidebar is Collapsed */
+.sidebar.collapsed .sidebarLogo {
+    width: 79px; /* Adjust size when collapsed */
+    transition: width 0.3s ease-in-out;
+}
+
+/* Corporate Minimalist Sidebar Title */
+.sidebarTitle {
+    font-family: 'Source Sans Pro', sans-serif; /* Corporate, clean, and highly readable */
+    font-size: 1rem; /* Smaller, compact text for a refined look */
+    font-weight: 600; /* Balanced weight, not too bold */
+    color: #D1D1D1; /* Light gray for a softer contrast against dark backgrounds */
+    text-transform: uppercase; /* Professional uppercase text */
+    letter-spacing: 1px; /* Clean spacing for readability */
+    text-align: center;
+    padding: 5px 0; /* Tighter padding for compactness */
+    margin-bottom: 10px; /* Reduced margin to fit more elements */
+    position: relative;
+}
+
+/* Hover Effect - Subtle & Professional */
+.sidebarTitle:hover {
+    color: #FFFFFF; /* Lighten text slightly for clarity */
+    transition: color 0.2s ease-in-out;
+}
+
+/* Sidebar Divider */
+.sidebarDivider {
+    width: 85%; /*Adjust width */
+    height: 1px; /* Thin line */
+    background-color: rgba(255, 255, 255, 0.5); /* Subtle color */
+    margin: 1px auto; /* Adjust the spacing */
+    border-radius: 10px; /* Rounded edges */
+    margin-top: 0px; /* Move the divider upwards */
+}
+
+
+/* Sidebar Toggle (Hamburger) */
+.sidebar-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    margin-right: auto; /* Pushes to the right */
+    display: flex !important; /* Ensures it's visible */
+    align-items: center;
+    justify-content: center;
+    z-index: 2000; /* Make sure it's above other elements */
+}
+
+/* Hamburger Icon */
+.menu-icon {
+    width: 22px;
+    height: 2px;
+    background-color: white !important;
+    display: block;
+    position: relative;
+}
+
+.menu-icon::before,
+.menu-icon::after {
+    content: "";
+    width: 22px;
+    height: 2px;
+    background-color: white;
+    position: absolute;
+    left: 0;
+}
+
+.menu-icon::before {
+    top: -6px;
+}
+
+.menu-icon::after {
+    top: 6px;
+}
+
+/* 🔹 Top Navigation Bar */
+.topBar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #2c3e50; /* Match sidebar */
+    padding: 10px 15px;
+    height: 60px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.topLeft {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between menu & logo */
+}
+
+/* When sidebar is collapsed */
+.topBar.shifted {
+    margin-left: 5px; /* Matches collapsed sidebar width */
+}
+
+.topBar.shifted .sidebarToggle {
+    margin-left: 80px; /* Shifted when sidebar is collapsed */
+    transition: margin-left 0.3s ease-in-out;
+}
+
+/* Top Right Section (Notif Bell and Profile) */
+.topRight {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* Add spacing between bell and profile */
+    position: absolute;
+    right: 25px; /* Align to the right of the top bar */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1100; /* Ensure it's above other elements */
+}
+
+/* Notifications */
+.notificationContainer {
+    position: relative;
+    cursor: pointer;
+    display: flex; /* Ensures proper spacing */
+    align-items: center;
+}
+
+.notificationContainer:hover {
+    background-color: rgba(237, 233, 30, 0.1); /* Subtle background change on hover */
+    transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+.notificationContainer:hover .notificationIcon {
+    color: #f1c40f; /* Change color on hover */
+}
+
+.notificationContainer:hover .notificationDropdown {
+    visibility: visible;
+    opacity: 1;
+}
+
+.notificationIcon {
+    font-size: 1.6rem;
+    color: white;
+
+    /* Add animation */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+
+.notificationBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+
+}
+
+/* 🔹 Notification Dropdown */
+.notificationDropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: rgb(255, 255, 255);
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    width: 300px;
+    max-height: 350px;
+    overflow-y: auto;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+
+.notificationDropdown.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+.notificationHeader {
+    padding: 10px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    background-color: var(--color-topbar);
+    color: var(--color-sidebar-text);
+}
+
+
+.notificationDropdown ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.notificationDropdown ul::-webkit-scrollbar {
+    width: 6px;
+}
+
+.notificationDropdown ul::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.notificationDropdown ul::-webkit-scrollbar-thumb:hover {
+    background: #888;
+}
+.notificationDropdown li {
+    padding: 12px; /* Add more padding */
+    border-bottom: 1px solid #ddd;
+    font-size: 1rem; /* Slightly increase font size */
+    color: #333;
+    line-height: 1.5; /* Improve spacing */
+}
+
+.notificationDropdown li.unread {
+    background: #fff9db; /* Light yellow highlight */
+    font-weight: bold;
+}
+
+.notificationDropdown li.read {
+    background-color: white;
+    color: #95a5a6;
+}
+
+.notificationDropdown li:hover {
+    background-color: rgba(241, 196, 15, 0.2); /* Soft yellow */
+    cursor: pointer;
+}
+
+
+.notificationActions button {
+    background-color: #3498db; /* Blue color */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px; /* Rounded edges */
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.notificationActions button {
+    background-color: #2980b9;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+.notificationActions button:hover {
+    background-color: #2980b9;
+}
+
+.notificationContent {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.notificationOptions {
+    padding: 8px 12px;
+    background: #f9f9f9;
+    transition: background 0.3s ease-in-out;
+}
+
+.notificationOptions:hover {
+    background: #e74c3c; /* Red hover */
+    color: white;
+}
+
+.threeDots {
+    cursor: pointer;
+}
+
+/* Profile Section */
+.profileContainer {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 5px;
+}
+
+.profileDropdown {
+    position: absolute;
+    width: 210px; /* Fixed width */
+    height: 250px; /* Fixed height */
+    top: 50px; /* Positioned below the profile */
+    right: -10px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.profileDropdown ul {
+    list-style-type: none; /* Remove default bullet points */
+    padding-left: 0;       /* Remove default padding */
+    margin: 0;
+}
+
+.profileDropdown li {
+    margin-bottom: 10px; /* Space between items */
+}
+
+.profileDropdown span {
+    display: block;  /* Ensure each item is on a new line */
+    font-size: 1rem; /* Adjust size */
+    color: #555;     /* Adjust color */
+    text-align: center; /* Center the text */
+}
+
+.profileDropdown .adminName {
+    font-weight: bold; /* Make the name bold */
+    margin-bottom: 5px; /* Space between name and email */
+}
+
+.dropdownProfilePicture {
+    width: 80px; /* or any desired size */
+    height: 80px;
+    margin-left: 50px;
+    margin-top: 10px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover;
+    border: 3px solid #4CAF50; /* Green border, customize color as needed */
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    animation: popIn 0.5s ease;
+}
+.profileContainer, .notificationContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+/* Animation for when the profile picture appears */
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.profileEmail {
+    font-size: 1.0rem; /* Adjust size */
+    color: #555;      /* Adjust color */
+    display: block;   /* Ensure it appears below the name */
+    margin-top: 0px;  /* Optional spacing */
+    margin-bottom: 48px;
+    margin-right: 50px;
+}
+
+.profileDropdown button {
+    width: 100%; /* Make logout button span the full width */
+    padding: 8px;
+    background-color: #f44336; /* Red color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.profileDropdown button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}
+
+
+.profileContainer span {
+    margin-left: 10px;
+}
+
+.profilePicture {
+    width: 40px; /* or any desired size */
+    height: 40px;
+    border-radius: 50%; /* Make it circular */
+    object-fit: cover;
+    border: 3px solid #4CAF50; /* Green border, customize color as needed */
+    transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    animation: popIn 0.5s ease;
+}
+
+/* Hover effect: scale up slightly and change border color */
+.profilePicture:hover {
+    transform: scale(1.1); /* Slight zoom on hover */
+    border-color: #2196F3; /* Change border color to blue */
+}
+
+/* Animation for when the profile picture appears */
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Main Content */
+.mainContent {
+    margin-left: 250px; /* Space for the expanded sidebar */
+    transition: margin-left 0.3s ease;
+    padding: 20px;
+}
+
+.mainContent.shifted {
+    margin-left: 75px; /* Space for the collapsed sidebar */
+    margin-top: 66px;
+}
+
+/* 🔹 General Icon Styling */
+.fa-icon {
+    font-size: 1.2rem; /* Default size for all icons */
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+/* Sidebar Logo */
+.sidebarLogo {
+        width: 150px;  /* Adjust width as needed */
+        height: auto;  /* Maintains aspect ratio */
+        display: block;
+        margin: 0 auto; /* Center it */
+        align-items:center;
+}    
+
+/* Adjustments for Sidebar States */
+.sidebar-expanded .sidebar-logo {
+    display: block; /* Show logo when sidebar is expanded */
+}
+
+.sidebar-collapsed .sidebar-logo {
+    display: none; /* Hide logo when sidebar is collapsed */
+}
+
+/* 🔹 Sidebar Icons */
+.sidebar nav ul li svg {
+    font-size: 1.2rem;
+    margin-right: 12px;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.sidebar nav ul li:hover svg {
+    color: #f1c40f; /* Change color on hover */
+    transform: scale(1.1) rotate(-5deg);
+}
+
+/* 🔹 Top Bar Icons */
+.topBar svg {
+    font-size: 1.6rem;
+    color: white;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.topBar svg:hover {
+    transform: scale(1.2) rotate(5deg);
+    color: #f1c40f;
+}
+
+/* 🔹 Notification Icon */
+.notificationIcon {
+    font-size: 1.6rem;
+    color: rgb(229, 229, 229);
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Hover Effect - Rotate and Scale */
+.notificationIcon:hover {
+    transform: scale(1.1);
+    color: #998431;
+}
+
+/* 🔹 Notification Badge Animation */
+.notificationBadge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 2px 6px;
+    animation: pulse 1.5s infinite;
+}
+
+/* 🔹 Notification Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* 🔹 Three Dots Icon (More Options) */
+.threeDots {
+    font-size: 90rem;
+    color: #596781 !important;
+    cursor: pointer;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hover Effect - Spin */
+.threeDots:hover {
+    color: #1d77d7 !important;
+    transform: rotate(180deg);
+}
+
+/* 🔹 Profile Icon */
+.profileContainer svg {
+    font-size: 1.5rem;
+    color: white;
+    transition: transform 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Hover Effect - Scale and Glow */
+.profileContainer svg:hover {
+    transform: scale(1.1) rotate(5deg);
+    color: #f1c40f;
+    text-shadow: 0px 0px 10px rgba(255, 215, 0, 0.7);
+}
+
+/* 🔹 Dark Mode Button */
+.darkModeToggle svg {
+    font-size: 1.4rem;
+    color: #222;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Hover Effect - Light Flicker */
+.darkModeToggle:hover svg {
+    color: #f1c40f;
+    animation: flicker 0.5s infinite alternate;
+}
+
+/* 🔹 Flicker Animation for Dark Mode */
+@keyframes flicker {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* 🔹 Logout Icon */
+.logoutButton svg {
+    font-size: 1.2rem;
+    margin-right: 8px;
+    transition: transform 0.2s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Hover Effect - Shake */
+.logoutButton:hover svg {
+    transform: rotate(-10deg) scale(1.05);
+    color: #ffcc00;
+    animation: shake 0.5s infinite alternate;
+}
+
+/* 🔹 Shake Animation */
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-2px);
+    }
+    50% {
+        transform: translateX(2px);
+    }
+    75% {
+        transform: translateX(-2px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}

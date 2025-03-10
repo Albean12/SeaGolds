@@ -1,0 +1,102 @@
+.payment-container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    transition: margin-left 0.3s ease;
+}
+
+.payment-container.shifted {
+    margin-left: 200px;
+}
+
+h2 {
+    text-align: center;
+    color: #2c3e50;
+}
+
+.warning-message {
+    background-color: #f39c12;
+    color: #fff;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.warning-message .contact-landlord {
+    color: #2980b9;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.payment-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+button:hover {
+    background-color: #218c54;
+}
+
+.payment-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.payment-history th,
+.payment-history td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.payment-history th {
+    background-color: #3498db;
+    color: #fff;
+}
+
+.payment-history tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.payment-history tr:hover {
+    background-color: #f1f1f1;
+}
+.notification-banner {
+    background-color: #ffc107; /* Yellow for warning */
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: 1px solid #ffca28;
+    border-radius: 5px;
+}

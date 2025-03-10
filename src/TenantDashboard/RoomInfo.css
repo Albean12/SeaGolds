@@ -1,0 +1,78 @@
+.roomCard-container {
+    margin: 0; /* Remove default margins */
+    padding: 2rem; /* Add padding for spacing */
+    max-width: 900px;
+    box-sizing: border-box; /* Include padding in width calculation */
+    transition: margin-left 0.3s ease;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.roomCard-container.shifted {
+    margin-left: 200px; /* Remove shifting when sidebar retracts */
+}
+
+
+/* Title */
+.title {
+    font-size: 2rem; /* Keep title size */
+    font-weight: 700;
+    text-align: left; /* Align to left */
+    color: #4a90e2;
+    padding: 1rem 0; /* Add space */
+    margin: 0 0 1rem 0; /* Bottom spacing */
+}
+
+/* Room Card */
+.roomCard {
+    padding: 0; /* Remove unnecessary padding */
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #555;
+}
+
+/* Info Section */
+.infoSection p {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    margin: 0.5rem 0;
+    color: #333;
+}
+
+.icon {
+    margin-right: 0.5rem;
+    color: #4a90e2;
+    font-size: 1.2rem;
+}
+
+/* Amenities Section */
+.amenitiesSection h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    color: #333;
+}
+
+.amenitiesSection ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 1rem;
+}
+
+.amenitiesSection li {
+    margin: 0.3rem 0;
+    color: #555;
+    font-size: 0.9rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.amenitiesSection li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #4a90e2;
+    font-size: 1.2rem;
+}
