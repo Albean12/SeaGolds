@@ -1,16 +1,11 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import Lightbox from 'react-awesome-lightbox';
-import 'react-awesome-lightbox/build/style.css';
 import './Gallery.css';
 
 const Gallery = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [selectedImages, setSelectedImages] = useState([]); // Track selected images
-  const [isOpen, setIsOpen] = useState(false);
-  const [currentImages, setCurrentImages] = useState([]);
-  const [photoIndex, setPhotoIndex] = useState(0);
+  const [selectedImages, setSelectedImages] = useState([]);
 
   useEffect(() => {
     fetchCategories();
@@ -59,22 +54,15 @@ const Gallery = () => {
 
   const openModal = useCallback((category) => {
     setSelectedCategory(category);
-    setPhotoIndex(0);
     setModalOpen(true);
-    setSelectedImages([]); // Clear selected images when opening a new modal
+    setSelectedImages([]);
   }, []);
 
   const closeModal = useCallback(() => {
     setModalOpen(false);
     setSelectedCategory(null);
-    setSelectedImages([]); // Reset selected images on close
+    setSelectedImages([]);
   }, []);
-
-  const openLightbox = (images, index) => {
-    setCurrentImages(images.map((img) => ({ url: img.url })));
-    setPhotoIndex(index);
-    setIsOpen(true);
-  };
 
   return (
     <section className="gallery-section">
@@ -120,9 +108,6 @@ const Gallery = () => {
                     src={image.url}
                     alt={image.title || `Slide ${index + 1}`}
                     className="modal-image"
-                    onClick={() =>
-                      openLightbox(selectedCategory.images, index)
-                    }
                   />
                   {image.title && <p>{image.title}</p>}
                   {image.description && <p>{image.description}</p>}
@@ -131,15 +116,6 @@ const Gallery = () => {
             </div>
           </div>
         </div>
-      )}
-
-      {/* Lightbox */}
-      {isOpen && (
-        <Lightbox
-          images={currentImages}
-          startIndex={photoIndex}
-          onClose={() => setIsOpen(false)}
-        />
       )}
     </section>
   );
