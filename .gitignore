@@ -25,3 +25,4 @@ yarn-error.log*
 /laravel-backend/public/storage
 /laravel-backend/storage/*.key
 /laravel-backend/.env
+.vercel
