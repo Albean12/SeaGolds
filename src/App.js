@@ -26,7 +26,7 @@ import Bills from './TenantDashboard/PaymentTenant';
 import Maintenance from './TenantDashboard/MaintenanceTenant';
 import Map from './TenantDashboard/MapTenant';
 import Apply from './pages/Apply/Apply';
-import { API_BASE_URL } from "../config";
+import { API_BASE_URL } from "./pages/config";
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { GoogleOAuthProvider } from "@react-oauth/google";
