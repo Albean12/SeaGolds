@@ -140,29 +140,24 @@ const AdminGallery = () => {
         }}
         >
 
+        <div className="form-row">
+          <div className="form-group">
+            <label htmlFor="title">Title</label>
+            <input
+              type="text"
+              id="title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              placeholder="Enter image title"
+            />
+          </div>
         <div className="form-group">
           <label htmlFor="image">Select Image</label>
           <input type="file" id="image" onChange={(e) => setNewImage(e.target.files[0])} required={!editMode} />
         </div>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            placeholder="Enter image title"
-          />
         </div>
-        <div className="form-group">
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter image description"
-          ></textarea>
-        </div>
+
+        <div className="form-row">
         <div className="form-group">
           <label htmlFor="category">Category</label>
           <select id="category" value={category} onChange={(e) => setCategory(e.target.value)} required>
@@ -174,8 +169,16 @@ const AdminGallery = () => {
             ))}
           </select>
         </div>
-        <button type="submit">{editMode ? 'Update Image' : 'Upload Image'}</button>
-      </form>
+        <div className="form-group">
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            placeholder="Enter image description"
+          ></textarea>
+        </div>
+        </div>
 
       {/* Image Gallery */}
       <div className="gallery-grid">
@@ -188,7 +191,7 @@ const AdminGallery = () => {
               <p>Category: {img.category}</p>
             </div>
             <div className="gallery-actions">
-              <button onClick={() => {
+              <button className="edit-action" onClick={() => {
                 setEditMode(img.id);
                 setTitle(img.title);
                 setDescription(img.description);
@@ -196,11 +199,14 @@ const AdminGallery = () => {
               }}>
                 Edit
               </button>
-              <button onClick={() => handleImageDelete(img.id)}>Delete</button>
+              <button className="delete-action" onClick={() => handleImageDelete(img.id)}>Delete</button>
             </div>
           </div>
         ))}
       </div>
+
+      <button className= "upload-action"type="submit">{editMode ? 'Update Image' : 'Upload Image'}</button>
+      </form>
     </div>
   );
 };

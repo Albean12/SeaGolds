@@ -16,7 +16,7 @@ import {
     FaEllipsisV,
 } from "react-icons/fa";
 
-const AdminDashboard = () => {
+const AdminDashboard = ({ onAddUnit }) => {
     const [admin, setAdmin] = useState({ name: "", email: "", profilePicture: "" });
     const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
     const [notifications, setNotifications] = useState([]);
@@ -24,6 +24,29 @@ const AdminDashboard = () => {
     const [showProfileDropdown, setShowProfileDropdown] = useState(false);
     const dropdownRef = useRef(null);
     const profileRef = useRef(null);
+
+    const handleAddUnit = async (unit) => {
+        try {
+            const response = await fetch("http://localhost:8000/api/units", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(unit),
+            });
+    
+            if (!response.ok) {
+                throw new Error("Failed to add unit.");
+            }
+    
+            const newUnit = await response.json();
+            alert("Unit added successfully!");
+        } catch (error) {
+            console.error("Error adding unit:", error);
+            alert("Failed to add unit. Please try again.");
+        }
+    };
+    
 
     // Fetch Admin Profile
     useEffect(() => {
@@ -128,6 +151,7 @@ const AdminDashboard = () => {
     </div>
 {/* 🔹 Right Section: Notifications & Profile */}
 <div className={styles.topRight}>
+
     {/* Notifications */}
     <div className={styles.notificationContainer} ref={dropdownRef}>
         <FaBell className={styles.notificationIcon} onClick={() => setShowNotifications((prev) => !prev)} />

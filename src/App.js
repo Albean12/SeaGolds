@@ -26,7 +26,6 @@ import Bills from './TenantDashboard/PaymentTenant';
 import Maintenance from './TenantDashboard/MaintenanceTenant';
 import Map from './TenantDashboard/MapTenant';
 import Apply from './pages/Apply/Apply';
-import { API_BASE_URL } from "./config.js"; // ✅ Import backend URL from config.js
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -41,7 +40,30 @@ const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const [showLoginModal, setShowLoginModal] = useState(false);
 
-  // Auth check function
+  // Function to handle adding a new unit
+  const handleAddUnit = async (unit) => {
+    try {
+        const response = await fetch("http://localhost:8000/api/units", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(unit),
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to add unit.");
+        }
+
+        const newUnit = await response.json();
+        alert("Unit added successfully!");
+    } catch (error) {
+        console.error("Error adding unit:", error);
+        alert("Failed to add unit. Please try again.");
+    }
+  };
+
+  // Authentication check function
   const checkAuth = async () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -50,21 +72,21 @@ const App = () => {
       setIsLoggedIn(false);
       return;
     }
-  
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
+      const response = await fetch("http://localhost:8000/api/auth/validate-token", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
       });
-  
+
       if (!response.ok) throw new Error("Token invalid");
-  
+
       const user = await response.json();
       console.log("Fetched User Data:", user); // Debugging the user data
-  
+
       if (user.role) {
         setRole(user.role); // Set role as returned by backend
         localStorage.setItem('role', user.role); // Persist role in localStorage
@@ -88,8 +110,8 @@ const App = () => {
   // Handle logout function
   const handleLogout = () => {
     localStorage.clear(); // Clear all local storage data
-    setRole("null"); // Set default role to guest_user
-    setIsLoggedIn(false); // Mark user as logged out
+    setRole(null);
+    setIsLoggedIn(false);
   };
 
   const handleLoginSuccess = (userRole) => {
@@ -108,15 +130,11 @@ const App = () => {
     <GoogleOAuthProvider clientId={clientId}>
       <Router>
         <div className="app-content">
-          {/* Debugging role */}
-          {console.log("✅ API_BASE_URL:", API_BASE_URL)}
           {console.log("Current Role State:", role)}
 
-          {/* Conditionally render Navbar */}
           {role !== 'admin' && role !== 'tenant' && <Navbar onLogout={handleLogout} />}
 
           <Routes>
-            {/* General routes */}
             <Route path="/" element={<Home />} />
             <Route path="/location" element={<Location />} />
             <Route path="/gallery" element={<Gallery />} />
@@ -126,13 +144,13 @@ const App = () => {
             <Route path="/login" element={<Login setRole={handleLoginSuccess} />} />
             <Route path="/create-account" element={<CreateAccount />} />
 
-            {/* Admin-only route */}
+            {/* Admin-only routes */}
             <Route
               path="/admin/dashboard/*"
-              element={role === 'admin' ? <AdminDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
+              element={role === 'admin' ? <AdminDashboard onLogout={handleLogout} onAddUnit={handleAddUnit} /> : <Navigate to="/login" />}
             >
               <Route path="pending-applications" element={<PendingApplications />} />
-              <Route path="unit-management" element={<UnitManagement />} />
+              <Route path="unit-management" element={<UnitManagement onAddUnit={handleAddUnit} />} />
               <Route path="events-board" element={<EventsBoard />} />
               <Route path="manage-tenants" element={<ManageTenants />} />
               <Route path="payment-dashboard" element={<PaymentAdmin />} />
@@ -142,7 +160,7 @@ const App = () => {
               <Route path="feedback-admin" element={<FeedbackAdmin />} />
             </Route>
 
-            {/* Tenant-only route */}
+            {/* Tenant-only routes */}
             <Route
               path="/tenant/dashboard/*"
               element={role === 'tenant' ? <TenantDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}

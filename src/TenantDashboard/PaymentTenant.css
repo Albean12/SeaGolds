@@ -1,10 +1,18 @@
 .payment-container {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 2rem auto;
     padding: 2rem;
     transition: margin-left 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
+.payment-background {
+    background-image: url('http://localhost:3000/Background/pay.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
 .payment-container.shifted {
     margin-left: 200px;
 }
@@ -65,6 +73,44 @@ button:hover {
     background-color: #218c54;
 }
 
+.notification-banner {
+    background-color: #ffc107; /* Yellow for warning */
+    color: #333;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border: 1px solid #ffca28;
+    border-radius: 5px;
+}
+
+/* 🚀 Transactions Page */
+.transactions-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.transactions-container h1 {
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+.payment-history {
+    width: 100%;
+    overflow-x: auto; /* Enable scrolling on small screens */
+}
+
 .payment-history table {
     width: 100%;
     border-collapse: collapse;
@@ -76,6 +122,7 @@ button:hover {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    white-space: nowrap; /* Prevent text from breaking into multiple lines */
 }
 
 .payment-history th {
@@ -83,6 +130,7 @@ button:hover {
     color: #fff;
 }
 
+/* Alternating Row Colors */
 .payment-history tr:nth-child(even) {
     background-color: #f9f9f9;
 }
@@ -90,13 +138,65 @@ button:hover {
 .payment-history tr:hover {
     background-color: #f1f1f1;
 }
-.notification-banner {
-    background-color: #ffc107; /* Yellow for warning */
-    color: #333;
-    text-align: center;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    border: 1px solid #ffca28;
-    border-radius: 5px;
+
+/* ✅ Tablet Mode (Width < 768px) */
+@media (max-width: 768px) {
+    .payment-container {
+        max-width: 90%;
+        padding: 1.5rem;
+    }
+
+    .payment-history {
+        overflow-x: auto; /* Keep horizontal scrolling enabled */
+    }
+
+    .payment-history table {
+        width: 100%;
+        min-width: 650px; /* Prevent excessive shrinking */
+    }
+
+    .payment-history th,
+    .payment-history td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+
+/* ✅ Smartphone Mode (Width < 480px) */
+@media (max-width: 480px) {
+    .payment-container {
+        max-width: 100%;
+        padding: 1rem;
+        font-size: 14px;
+    }
+
+    .payment-form input,
+    .payment-form select {
+        width: 100%;
+        font-size: 14px;
+        padding: 6px;
+    }
+
+    /* Make table scrollable */
+    .payment-history {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+
+    .payment-history table {
+        min-width: 600px; /* Ensures table doesn't shrink too much */
+    }
+
+    .payment-history th,
+    .payment-history td {
+        font-size: 12px;
+        padding: 6px;
+        text-align: left; /* Align left for better readability */
+    }
+
+    .payment-history th {
+        font-size: 13px;
+        white-space: nowrap;
+    }
 }

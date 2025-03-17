@@ -328,3 +328,15 @@ body {
   cursor: default;
 }
 
+.contact-container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.country-code {
+  background: #ddd;
+  padding: 8px;
+  border-radius: 5px;
+  font-weight: bold;
+}

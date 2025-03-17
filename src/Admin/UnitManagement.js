@@ -114,138 +114,153 @@ const UnitManagement = ({ onAddUnit }) => {
             alert('Failed to assign unit. Please try again.');
         }
     };
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
         const unit = {
-            unit_code: formData.get('unit_code'),
-            name: formData.get('name'),
-            capacity: formData.get('capacity'),
-            price: formData.get('price'),
+            unit_code: formData.get("unit_code"),
+            name: formData.get("name"),
+            capacity: formData.get("capacity"),
+            price: formData.get("price"),
+            stay_type: formData.get("stay_type"), // Capture stay_type from the form
         };
-        onAddUnit(unit);
+    
+        if (typeof onAddUnit === "function") {
+            onAddUnit(unit);
+        } else {
+            console.error("onAddUnit is not a function");
+        }
+    
         e.target.reset();
     };
-
+    
     return (
         <section id="unit-management" className="dashboard-section">
-        <h2>Unit Management</h2>
-        <p>Units managed: {units.length}</p>
+            <h2>Unit Management</h2>
+            <p>Units managed: {units.length}</p>
     
-        {/* Add Unit Form */}
-        <form onSubmit={handleSubmit}>
-            <h3>Add New Unit</h3>
-            <div>
-                <label>
-                    Unit Code:
-                    <input type="text" name="unit_code" required placeholder="Unit Code (e.g., CF-1)" />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Name:
-                    <input type="text" name="name" required placeholder="Unit Name" />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Capacity:
-                    <input type="number" name="capacity" required placeholder="Capacity" />
-                </label>
-            </div>
-            <div>
-                <label>
-                    Price:
-                    <input type="number" name="price" required placeholder="Price" />
-                </label>
-            </div>
-            <button type="submit">Add Unit</button>
-        </form>
+            {/* Add Unit Form */}
+            <form onSubmit={handleSubmit}>
+                <h3>Add New Unit</h3>
+                <div>
+                    <label>
+                        Unit Code:
+                        <input type="text" name="unit_code" required placeholder="Unit Code (e.g., CF-1)" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Name:
+                        <input type="text" name="name" required placeholder="Unit Name" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Capacity:
+                        <input type="number" name="capacity" required placeholder="Capacity" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Price:
+                        <input type="number" name="price" required placeholder="Price" />
+                    </label>
+                </div>
+                <div>
+                    <label>
+                        Stay Type:
+                        <select name="stay_type" required>
+                            <option value="short-term">Short-Term</option>
+                            <option value="long-term">Long-Term</option>
+                        </select>
+                    </label>
+                </div>
+                <button type="submit">Add Unit</button>
+            </form>
     
-        {/* Short-Term Stay Units */}
-        <h3>Short-Term Stay Units</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Unit Code</th>
-                    <th>Name</th>
-                    <th>Capacity</th>
-                    <th>Price</th>
-                    <th>Occupied</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {units
-                    .filter((unit) => unit.capacity <= 6) // Filter for short-term units
-                    .map((unit) => (
-                        <tr key={unit.id}>
-                            <td>{unit.unit_code || 'N/A'}</td>
-                            <td>{unit.name}</td>
-                            <td>{unit.capacity}</td>
-                            <td>{unit.price}</td>
-                            <td>{unit.users_count || 0}</td>
-                            <td>{unit.status}</td>
-                            <td>
-                                <button
-                                    onClick={() => handleToggleStatus(unit.id, unit.status)}
-                                    className={
-                                        unit.status === 'unavailable'
-                                            ? 'available-button'
-                                            : 'unavailable-button'
-                                    }
-                                >
-                                    {unit.status === 'unavailable' ? 'Make Available' : 'Make Unavailable'}
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-            </tbody>
-        </table>
-    
-        {/* Long-Term Stay Units */}
-        <h3>Long-Term Stay Units</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Unit Code</th>
-                    <th>Name</th>
-                    <th>Capacity</th>
-                    <th>Price</th>
-                    <th>Occupied</th>
-                    <th>Status</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {units
-                    .filter((unit) => unit.capacity > 6) // Filter for long-term units
-                    .map((unit) => (
-                        <tr key={unit.id}>
-                            <td>{unit.unit_code || 'N/A'}</td>
-                            <td>{unit.name}</td>
-                            <td>{unit.capacity}</td>
-                            <td>{unit.price}</td>
-                            <td>{unit.users_count || 0}</td>
-                            <td>{unit.status}</td>
-                            <td>
-                                <button
-                                    onClick={() => handleToggleStatus(unit.id, unit.status)}
-                                    className={
-                                        unit.status === 'unavailable'
-                                            ? 'available-button'
-                                            : 'unavailable-button'
-                                    }
-                                >
-                                    {unit.status === 'unavailable' ? 'Make Available' : 'Make Unavailable'}
-                                </button>
-                            </td>
-                        </tr>
-                    ))}
-            </tbody>
-        </table>
+            <h3>Short-Term Stay Units</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Unit Code</th>
+                        <th>Name</th>
+                        <th>Capacity</th>
+                        <th>Price</th>
+                        <th>Occupied</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {units
+                        .filter((unit) => unit.stay_type === "short-term") // Filter by stay_type
+                        .map((unit) => (
+                            <tr key={unit.id}>
+                                <td>{unit.unit_code || "N/A"}</td>
+                                <td>{unit.name}</td>
+                                <td>{unit.capacity}</td>
+                                <td>{unit.price}</td>
+                                <td>{unit.users_count || 0}</td>
+                                <td>{unit.status}</td>
+                                <td>
+                                    <button
+                                        onClick={() => handleToggleStatus(unit.id, unit.status)}
+                                        className={
+                                            unit.status === "unavailable"
+                                                ? "available-button"
+                                                : "unavailable-button"
+                                        }
+                                    >
+                                        {unit.status === "unavailable" ? "Make Available" : "Make Unavailable"}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
+
+            <h3>Long-Term Stay Units</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Unit Code</th>
+                        <th>Name</th>
+                        <th>Capacity</th>
+                        <th>Price</th>
+                        <th>Occupied</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {units
+                        .filter((unit) => unit.stay_type === "long-term") // Filter by stay_type
+                        .map((unit) => (
+                            <tr key={unit.id}>
+                                <td>{unit.unit_code || "N/A"}</td>
+                                <td>{unit.name}</td>
+                                <td>{unit.capacity}</td>
+                                <td>{unit.price}</td>
+                                <td>{unit.users_count || 0}</td>
+                                <td>{unit.status}</td>
+                                <td>
+                                    <button
+                                        onClick={() => handleToggleStatus(unit.id, unit.status)}
+                                        className={
+                                            unit.status === "unavailable"
+                                                ? "available-button"
+                                                : "unavailable-button"
+                                        }
+                                    >
+                                        {unit.status === "unavailable" ? "Make Available" : "Make Unavailable"}
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
+
     </section>
     
     );
