@@ -26,6 +26,7 @@ import Bills from './TenantDashboard/PaymentTenant';
 import Maintenance from './TenantDashboard/MaintenanceTenant';
 import Map from './TenantDashboard/MapTenant';
 import Apply from './pages/Apply/Apply';
+import { API_BASE_URL } from "./config.js"; // ✅ Import backend URL from config.js
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -51,7 +52,7 @@ const App = () => {
     }
   
     try {
-      const response = await fetch("https://backend-production-8fda.up.railway.app/api/auth/validate-token", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/validate-token`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -108,6 +109,7 @@ const App = () => {
       <Router>
         <div className="app-content">
           {/* Debugging role */}
+          {console.log("✅ API_BASE_URL:", API_BASE_URL)}
           {console.log("Current Role State:", role)}
 
           {/* Conditionally render Navbar */}
