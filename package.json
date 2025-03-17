@@ -41,7 +41,8 @@
     "util": "^0.12.5",
     "web-vitals": "^2.1.4",
     "webpack": "^5.97.1",
-    "webpack-cli": "^5.1.4"
+    "webpack-cli": "^5.1.4",
+    "yocto-queue": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
