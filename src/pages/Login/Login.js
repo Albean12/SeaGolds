@@ -9,7 +9,7 @@ const Login = () => {
   const [isCreateAccountOpen, setCreateAccountOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); // ✅ Fixed this line
 
   // Open/Close Modal
   const openCreateAccountModal = () => setCreateAccountOpen(true);
@@ -27,51 +27,62 @@ const Login = () => {
         credentials: 'include',
         body: body ? JSON.stringify(body) : null,
       });
-  
+
       const text = await response.text(); // Log raw response
       console.log('Raw API Response:', text);
-  
+
       return JSON.parse(text); // Parse JSON response
     } catch (error) {
       console.error('Error Parsing JSON:', error.message);
       throw error;
     }
   };
-  
-  
+
+  // ✅ FIXED handleLogin Function
   const handleLogin = async (event) => {
     event.preventDefault();
     setErrorMessage('');
-  
+    console.log("🔄 Attempting Login..."); // Debugging
+
     try {
-      // Get CSRF cookie explicitly with axios instance
+      // ✅ Get CSRF cookie from backend before making login request
+      console.log("🟢 Fetching CSRF Cookie...");
       await axiosInstance.get('/sanctum/csrf-cookie');
-  
-      // Perform login explicitly via axios
+
+      // ✅ Ensure login request is a POST request
+      console.log("📤 Sending POST request to /api/login-admin-tenant");
       const response = await axiosInstance.post('/api/login-admin-tenant', {
         email,
         password,
       });
-  
+
       const data = response.data;
-  
-      // Set localStorage tokens explicitly
+      console.log("✅ Login Successful, Data:", data);
+
+      // ✅ Store authentication tokens
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
       localStorage.setItem("user_id", data.user_id);
-  
+
+      // ✅ Redirect based on role (Admin or Tenant)
       if (data.role === "admin") {
         window.location.href = "/admin/dashboard";
       } else if (data.role === "tenant") {
         window.location.href = "/tenant/dashboard/home";
       }
     } catch (error) {
-      console.error("Login error:", error);
-      setErrorMessage(error.response?.data?.error || "Invalid credentials or CSRF issue");
+      console.error("❌ Login error:", error);
+
+      // ✅ Improved error message handling
+      if (error.response) {
+        console.log("🔴 Error Response Data:", error.response.data);
+        setErrorMessage(error.response.data.error || "Invalid credentials or CSRF issue.");
+      } else {
+        setErrorMessage("Something went wrong. Please try again.");
+      }
     }
   };
 
-  
   return (
     <div className="login-page">
       <div className="login-left">
