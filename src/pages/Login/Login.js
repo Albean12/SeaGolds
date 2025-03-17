@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom'; // ✅ Use navigate instead of window.location.href
 import './Login.css';
 import CreateAccountModal from '../CreateAccount/CreateAccount';
 import axiosInstance from './axiosInstance';
@@ -10,68 +10,50 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate(); // ✅ Use navigate() for programmatic navigation
 
   // Open/Close Modal
   const openCreateAccountModal = () => setCreateAccountOpen(true);
   const closeCreateAccountModal = () => setCreateAccountOpen(false);
 
-  // Helper function for fetch-based API calls
-  const fetchWithAuth = async (url, method, body = null) => {
-    try {
-      const response = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        credentials: 'include',
-        body: body ? JSON.stringify(body) : null,
-      });
-  
-      const text = await response.text(); // Log raw response
-      console.log('Raw API Response:', text);
-  
-      return JSON.parse(text); // Parse JSON response
-    } catch (error) {
-      console.error('Error Parsing JSON:', error.message);
-      throw error;
-    }
-  };
-  
-  
   const handleLogin = async (event) => {
     event.preventDefault();
     setErrorMessage('');
-  
+
     try {
-      // Get CSRF cookie explicitly with axios instance
+      // ✅ Fetch CSRF token once
       await axiosInstance.get('/sanctum/csrf-cookie');
-  
-      // Perform login explicitly via axios
+
+      // ✅ Perform login explicitly via axios
       const response = await axiosInstance.post('/api/login-admin-tenant', {
         email,
         password,
       });
-  
+
       const data = response.data;
-  
-      // Set localStorage tokens explicitly
+
+      // ✅ Set localStorage tokens
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("role", data.role);
       localStorage.setItem("user_id", data.user_id);
-  
+
+      // ✅ Redirect user based on role
       if (data.role === "admin") {
-        window.location.href = "/admin/dashboard";
+        navigate("/admin/dashboard"); // ✅ Uses React Router's navigate
       } else if (data.role === "tenant") {
-        window.location.href = "/tenant/dashboard/home";
+        navigate("/tenant/dashboard/home");
       }
     } catch (error) {
       console.error("Login error:", error);
-      setErrorMessage(error.response?.data?.error || "Invalid credentials or CSRF issue");
+
+      if (error.response?.status === 419) {
+        setErrorMessage("Session expired. Please refresh the page and try again.");
+      } else {
+        setErrorMessage(error.response?.data?.error || "Invalid credentials or CSRF issue.");
+      }
     }
   };
 
-  
   return (
     <div className="login-page">
       <div className="login-left">
