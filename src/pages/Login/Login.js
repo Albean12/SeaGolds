@@ -44,9 +44,11 @@ const Login = () => {
     console.log("🔄 Attempting Login...");
   
     try {
+      // ✅ Fetch CSRF Cookie if required (can be removed if CSRF is disabled)
       console.log("🟢 Fetching CSRF Cookie...");
       await axiosInstance.get('/sanctum/csrf-cookie');
   
+      // ✅ Sending login request
       console.log("📤 Sending POST request to /api/login-admin-tenant");
       const response = await axiosInstance.post('/api/login-admin-tenant', {
         email,
@@ -56,22 +58,34 @@ const Login = () => {
       const data = response.data;
       console.log("✅ Login Successful, Data:", data);
   
+      // ✅ Ensure token is received before proceeding
       if (data.access_token) {
         try {
+          // ✅ Store credentials in localStorage
           localStorage.setItem("token", data.access_token);
           localStorage.setItem("role", data.role);
           localStorage.setItem("user_id", data.user_id);
-          console.log("✅ Token saved successfully");
+          console.log("✅ Token saved successfully:", data.access_token);
   
-          // ✅ Apply token to axios
+          // ✅ Apply token globally to axios for future requests
           axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${data.access_token}`;
   
-          // ✅ Delay redirect to prevent storage loss
+          // ✅ Debugging log to ensure role is stored properly
+          console.log("🔍 Stored Role:", localStorage.getItem("role"));
+          console.log("🔍 Stored User ID:", localStorage.getItem("user_id"));
+  
+          // ✅ Delay redirect to ensure token storage is successful
           setTimeout(() => {
-            if (data.role === "admin") {
+            const role = localStorage.getItem("role");
+            console.log("🚀 Redirecting based on role:", role);
+  
+            if (role === "admin") {
               window.location.href = "/admin/dashboard";
-            } else if (data.role === "tenant") {
+            } else if (role === "tenant") {
               window.location.href = "/tenant/dashboard/home";
+            } else {
+              console.error("❌ Unknown role! Redirecting to login.");
+              setErrorMessage("Invalid role detected. Please try logging in again.");
             }
           }, 500);
         } catch (storageError) {
@@ -91,6 +105,7 @@ const Login = () => {
       }
     }
   };
+  
   
 
   return (
