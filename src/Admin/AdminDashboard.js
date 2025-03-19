@@ -160,11 +160,11 @@ const AdminDashboard = () => {
                     <img src={`${process.env.REACT_APP_API_URL}/storage/profile/admin.png`} alt="Admin Profile" className={styles.profilePicture} />
                         <span>{admin.name || "Admin"}</span>
 
-                        {showProfileDropdown && (
+                        {showProfileDropdown && (   
                             <div className={styles.profileDropdown}>
                                 <ul>
                                     <li>
-                                        <img src="http://localhost:8000/storage/profile/admin.png" alt="Admin Profile" className={styles.dropdownProfilePicture} />
+                                        <img src={`${process.env.REACT_APP_API_URL}/storage/profile/admin.png`}  alt="Admin Profile" className={styles.dropdownProfilePicture} />
                                     </li>
                                     <span>{admin.name || "Admin"}</span>
                                     <span className={styles.profileEmail}>{admin.email}</span>
