@@ -15,37 +15,24 @@ console.log("✅ Final API_BASE_URL:", API_BASE_URL);
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL, // ✅ Uses dynamic environment variable
-  withCredentials: true, // ✅ Ensures cookies are sent with requests
+  withCredentials: false, // ❌ CSRF is removed, so credentials are not needed
   headers: {
     'Content-Type': 'application/json',
     'Accept': 'application/json',
   },
 });
 
-// ✅ Function to Fetch and Apply CSRF Token
-const fetchCsrfToken = async () => {
-  try {
-    await axiosInstance.get("/sanctum/csrf-cookie");
-    console.log("✅ CSRF Token Set Successfully");
-
-    // ✅ Extract CSRF Token from Cookies and Set it in Axios Headers
-    const csrfToken = document.cookie
-      .split("; ")
-      .find(row => row.startsWith("XSRF-TOKEN="))
-      ?.split("=")[1];
-
-    if (csrfToken) {
-      axiosInstance.defaults.headers.common["X-XSRF-TOKEN"] = decodeURIComponent(csrfToken);
-      console.log("✅ CSRF Token Applied to Axios Headers:", csrfToken);
-    } else {
-      console.warn("⚠️ CSRF Token Missing in Cookies");
+// ✅ Automatically Attach Authentication Token to Requests
+axiosInstance.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+      console.log("✅ Authentication Token Attached:", token);
     }
-  } catch (error) {
-    console.error("❌ CSRF Token Error:", error);
-  }
-};
-
-// ✅ Fetch CSRF Token Before Making Auth Requests
-fetchCsrfToken();
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 export default axiosInstance;
