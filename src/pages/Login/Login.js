@@ -38,42 +38,51 @@ const Login = () => {
     }
   };
 
-  // ✅ FIXED handleLogin Function
   const handleLogin = async (event) => {
     event.preventDefault();
     setErrorMessage('');
-    console.log("🔄 Attempting Login..."); // Debugging
-
+    console.log("🔄 Attempting Login...");
+  
     try {
-      // ✅ Get CSRF cookie from backend before making login request
       console.log("🟢 Fetching CSRF Cookie...");
       await axiosInstance.get('/sanctum/csrf-cookie');
-
-      // ✅ Ensure login request is a POST request
+  
       console.log("📤 Sending POST request to /api/login-admin-tenant");
       const response = await axiosInstance.post('/api/login-admin-tenant', {
         email,
         password,
       });
-
+  
       const data = response.data;
       console.log("✅ Login Successful, Data:", data);
-
-      // ✅ Store authentication tokens
-      localStorage.setItem("token", data.access_token);
-      localStorage.setItem("role", data.role);
-      localStorage.setItem("user_id", data.user_id);
-
-      // ✅ Redirect based on role (Admin or Tenant)
-      if (data.role === "admin") {
-        window.location.href = "/admin/dashboard";
-      } else if (data.role === "tenant") {
-        window.location.href = "/tenant/dashboard/home";
+  
+      if (data.access_token) {
+        try {
+          localStorage.setItem("token", data.access_token);
+          localStorage.setItem("role", data.role);
+          localStorage.setItem("user_id", data.user_id);
+          console.log("✅ Token saved successfully");
+  
+          // ✅ Apply token to axios
+          axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${data.access_token}`;
+  
+          // ✅ Delay redirect to prevent storage loss
+          setTimeout(() => {
+            if (data.role === "admin") {
+              window.location.href = "/admin/dashboard";
+            } else if (data.role === "tenant") {
+              window.location.href = "/tenant/dashboard/home";
+            }
+          }, 500);
+        } catch (storageError) {
+          console.error("❌ Error saving token:", storageError);
+        }
+      } else {
+        console.error("❌ No access token received!");
+        setErrorMessage("Invalid credentials or server error.");
       }
     } catch (error) {
       console.error("❌ Login error:", error);
-
-      // ✅ Improved error message handling
       if (error.response) {
         console.log("🔴 Error Response Data:", error.response.data);
         setErrorMessage(error.response.data.error || "Invalid credentials or CSRF issue.");
@@ -82,6 +91,7 @@ const Login = () => {
       }
     }
   };
+  
 
   return (
     <div className="login-page">
