@@ -15,10 +15,10 @@ console.log("✅ Final API_BASE_URL:", API_BASE_URL);
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true,
+  withCredentials: true, // ✅ Ensures cookies are included
   headers: {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    "Content-Type": "application/json",
+    "Accept": "application/json",
   },
 });
 
@@ -26,12 +26,51 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
+      console.log("✅ Token attached to request:", token);
+    } else {
+      console.warn("⚠️ No token found, request sent without Authorization header.");
     }
+
     return config;
   },
   (error) => Promise.reject(error)
+);
+
+// ✅ Handle Expired Tokens & Auto Redirect
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    console.error("❌ API Error:", error);
+
+    if (error.response) {
+      const { status } = error.response;
+
+      // ✅ If 401 Unauthorized, force logout & redirect to login
+      if (status === 401) {
+        console.warn("⚠️ Unauthorized! Clearing session and redirecting to login...");
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        localStorage.removeItem("user_id");
+        window.location.href = "/login"; // Redirect to login page
+      }
+
+      // ✅ If 419 CSRF error, attempt to refresh CSRF token
+      if (status === 419) {
+        console.warn("⚠️ CSRF token expired, refreshing...");
+        try {
+          await axiosInstance.get("/sanctum/csrf-cookie");
+          console.log("✅ CSRF Token Refreshed!");
+        } catch (csrfError) {
+          console.error("❌ Failed to refresh CSRF token:", csrfError);
+        }
+      }
+    }
+
+    return Promise.reject(error);
+  }
 );
 
 export default axiosInstance;
