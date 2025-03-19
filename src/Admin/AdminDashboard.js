@@ -29,7 +29,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/auth/user", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/auth/user`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 });
                 const user = await response.json();
@@ -51,7 +51,7 @@ const AdminDashboard = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await fetch("http://localhost:8000/api/notifications", {
+                const response = await fetch(`${process.env.REACT_APP_API_URL}/api/notifications`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
                 });
                 const data = await response.json();
@@ -157,7 +157,7 @@ const AdminDashboard = () => {
 
                     {/* Profile */}
                     <div className={styles.profileContainer} ref={profileRef} onClick={() => setShowProfileDropdown((prev) => !prev)}>
-                        <img src="http://localhost:8000/storage/profile/admin.png" alt="Admin Profile" className={styles.profilePicture} />
+                    <img src={`${process.env.REACT_APP_API_URL}/storage/profile/admin.png`} alt="Admin Profile" className={styles.profilePicture} />
                         <span>{admin.name || "Admin"}</span>
 
                         {showProfileDropdown && (
