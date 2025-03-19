@@ -22,9 +22,30 @@ const axiosInstance = axios.create({
   },
 });
 
-// ✅ Fetch CSRF token before login/authentication requests
-axiosInstance.get("/sanctum/csrf-cookie")
-  .then(() => console.log("✅ CSRF Token Set Successfully"))
-  .catch((error) => console.error("❌ CSRF Token Error:", error));
+// ✅ Function to Fetch and Apply CSRF Token
+const fetchCsrfToken = async () => {
+  try {
+    await axiosInstance.get("/sanctum/csrf-cookie");
+    console.log("✅ CSRF Token Set Successfully");
+
+    // ✅ Extract CSRF Token from Cookies and Set it in Axios Headers
+    const csrfToken = document.cookie
+      .split("; ")
+      .find(row => row.startsWith("XSRF-TOKEN="))
+      ?.split("=")[1];
+
+    if (csrfToken) {
+      axiosInstance.defaults.headers.common["X-XSRF-TOKEN"] = decodeURIComponent(csrfToken);
+      console.log("✅ CSRF Token Applied to Axios Headers:", csrfToken);
+    } else {
+      console.warn("⚠️ CSRF Token Missing in Cookies");
+    }
+  } catch (error) {
+    console.error("❌ CSRF Token Error:", error);
+  }
+};
+
+// ✅ Fetch CSRF Token Before Making Auth Requests
+fetchCsrfToken();
 
 export default axiosInstance;
