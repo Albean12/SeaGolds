@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom';
 import './SeagoldNavbarCSS.css';
 
 const SeagoldNavbar = () => {
-  const logoUrl = `${process.env.REACT_APP_API_URL}/storage/icons/SeagoldLogo.svg`; // Update to your backend logo URL
 
   return (
     <div className="seagold-navbar-container">
       <div className="seagold-navbar">
         <div className="seagold-navbar-logo">
-          <img src={logoUrl} alt="Seagold Dormitory Logo" />
+        <img src="../seagoldlogo.jpg" alt="Seagold Dormitory Logo" />
           <span className="seagold-navbar-logo-text"></span> {/* Text beside the logo */}
         </div>
         <div className="seagold-navbar-links">

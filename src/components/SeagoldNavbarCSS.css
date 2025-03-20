@@ -38,7 +38,7 @@
 /* 📌 Navbar Links */
 .seagold-navbar-links {
   display: flex;
-  gap: 1.5rem; /* ✅ Provides space between links */
+  gap: 4.5rem; /* ✅ Provides space between links */
 }
 
 .seagold-navbar-link {
@@ -47,6 +47,7 @@
   text-decoration: none;
   transition: color 0.3s;
   font-family: 'Poppins', sans-serif; /* ✅ Ensure Poppins font is applied */
+  font-weight: bold;
 }
 
 .seagold-navbar-link:hover {
