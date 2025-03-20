@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import SeagoldNavbar from './components/SeagoldNavbar.js';  // ✅ Use updated Navbar
 import Home from './pages/Home/Home';
 import Location from './pages/Location/Location';
 import Gallery from './pages/Gallery/Gallery';
@@ -113,7 +113,7 @@ const App = () => {
           {console.log("Current Role State:", role)}
 
           {/* Conditionally render Navbar */}
-          {role !== 'admin' && role !== 'tenant' && <Navbar onLogout={handleLogout} />}
+          {role !== 'admin' && role !== 'tenant' && <SeagoldNavbar onLogout={handleLogout} />}
 
           <Routes>
             {/* General routes */}

@@ -1,0 +1,81 @@
+/* 📌 Container for Navbar */
+.seagold-navbar-container {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  backdrop-filter: blur(8px);
+  background-color: rgba(40, 82, 122, 0.95);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 📌 Navbar Structure */
+.seagold-navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  width: 100%;
+  font-family: 'Poppins', sans-serif; /* ✅ Use Poppins Font */
+}
+
+/* 📌 Logo */
+.seagold-navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.seagold-navbar-logo img {
+  height: 40px;
+}
+
+.seagold-navbar-logo-text {
+  font-size: 1.2rem;
+  color: #F9F9F9;
+  font-weight: bold;
+}
+
+/* 📌 Navbar Links */
+.seagold-navbar-links {
+  display: flex;
+  gap: 1.5rem; /* ✅ Provides space between links */
+}
+
+.seagold-navbar-link {
+  color: #F9F9F9;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  font-family: 'Poppins', sans-serif; /* ✅ Ensure Poppins font is applied */
+}
+
+.seagold-navbar-link:hover {
+  color: #FFC857;
+}
+
+/* 📌 Login Button */
+.seagold-navbar-login {
+  display: flex;
+  align-items: center;
+}
+
+.seagold-navbar-login-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #FFC857;
+  color: #1E2022;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.seagold-navbar-login-button img {
+  height: 20px;
+}
+
+.seagold-navbar-login-button:hover {
+  background-color: #1E2022;
+  color: #F9F9F9;
+}

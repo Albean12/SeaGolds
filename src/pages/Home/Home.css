@@ -17,32 +17,6 @@ a:hover {
   color: #FFC857;
 }
 
-/* 🏠 Navbar */
-.navbar {
-  background: #28527A;
-  color: #F9F9F9;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  border-bottom: 3px solid #FFC857;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(8px);
-}
-
-.navbar a {
-  margin: 0 1rem;
-  color: #F9F9F9;
-  font-weight: 500;
-  font-size: 1rem;
-}
-
-.navbar a:hover {
-  color: #FFC857;
-}
 
 /* 🎭 Hero Section */
 .hero-section {
@@ -123,7 +97,6 @@ a:hover {
 }
 
 .feature-card {
-  background: #F9F9F9;
   padding: 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
