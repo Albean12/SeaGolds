@@ -11,7 +11,7 @@ const ManageTenants = () => {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/tenants');
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/tenants');
                 if (!response.ok) {
                     throw new Error('Failed to fetch tenant data');
                 }

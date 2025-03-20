@@ -12,7 +12,7 @@ const EventsBoard = () => {
     useEffect(() => {
         const fetchEvents = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/events', {
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/events', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
         
@@ -47,8 +47,8 @@ const EventsBoard = () => {
         e.preventDefault();
         const method = editMode ? 'PUT' : 'POST';
         const url = editMode
-            ? `http://localhost:8000/api/events/${editingEventId}`
-            : 'http://localhost:8000/api/events';
+            ? `https://backend-production-8fda.up.railway.app/api/events/${editingEventId}`
+            : 'https://backend-production-8fda.up.railway.app/api/events';
 
         await fetch(url, {
             method,

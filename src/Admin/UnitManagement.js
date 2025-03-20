@@ -12,7 +12,7 @@ const UnitManagement = ({ onAddUnit }) => {
     useEffect(() => {
         const fetchTenants = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/users');
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/users');
                 if (!response.ok) {
                     throw new Error('Failed to fetch tenants');
                 }
@@ -35,7 +35,7 @@ const UnitManagement = ({ onAddUnit }) => {
     useEffect(() => {
         const fetchUnits = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/units');
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/units');
                 if (!response.ok) {
                     throw new Error('Failed to fetch units');
                 }
@@ -55,7 +55,7 @@ const UnitManagement = ({ onAddUnit }) => {
         const newStatus = currentStatus === 'unavailable' ? 'available' : 'unavailable';
     
         try {
-            const response = await fetch(`http://localhost:8000/api/units/${unitId}/status`, {
+            const response = await fetch(`https://backend-production-8fda.up.railway.app/api/units/${unitId}/status`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ const UnitManagement = ({ onAddUnit }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/assign-unit', {
+            const response = await fetch('https://backend-production-8fda.up.railway.app/api/assign-unit', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

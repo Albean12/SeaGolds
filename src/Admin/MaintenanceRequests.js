@@ -15,7 +15,7 @@ const MaintenanceRequests = () => {
     useEffect(() => {
         const fetchMaintenanceRequests = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/maintenance-requests', {
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/maintenance-requests', {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -52,7 +52,7 @@ const MaintenanceRequests = () => {
     // Update Maintenance Request Status
     const updateStatus = async (id, status) => {
         try {
-            const response = await fetch(`http://localhost:8000/api/maintenance-requests/${id}/update`, {
+            const response = await fetch(`https://backend-production-8fda.up.railway.app/api/maintenance-requests/${id}/update`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ const MaintenanceRequests = () => {
     const handleRemove = async (id) => {
         if (window.confirm('Are you sure you want to delete this maintenance request?')) {
             try {
-                const response = await fetch(`http://127.0.0.1:8000/api/maintenance-requests/${id}`, {
+                const response = await fetch(`aphttps://backend-production-8fda.up.railway.app/i/maintenance-requests/${id}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -104,7 +104,7 @@ const MaintenanceRequests = () => {
 
         try {
             const response = await fetch(
-                `http://localhost:8000/api/maintenance-requests/${selectedRequest.id}/schedule`,
+                `https://backend-production-8fda.up.railway.app/api/maintenance-requests/${selectedRequest.id}/schedule`,
                 {
                     method: 'POST',
                     headers: {
@@ -212,21 +212,21 @@ const MaintenanceRequests = () => {
                                     <strong>Attached File:</strong>
                                     {selectedRequest.file_path.match(/\.(jpeg|jpg|png)$/i) ? (
                                         <img
-                                            src={`http://localhost:8000/storage/${selectedRequest.file_path}`}
+                                            src={`https://backend-production-8fda.up.railway.app/storage/${selectedRequest.file_path}`}
                                             alt="Uploaded"
                                             className="file-image"
                                         />
                                     ) : selectedRequest.file_path.match(/\.(mp4|mov)$/i) ? (
                                         <video controls className="file-video">
                                             <source
-                                                src={`http://localhost:8000/storage/${selectedRequest.file_path}`}
+                                                src={`https://backend-production-8fda.up.railway.app/storage/${selectedRequest.file_path}`}
                                                 type="video/mp4"
                                             />
                                             Your browser does not support the video tag.
                                         </video>
                                     ) : (
                                         <a
-                                            href={`http://localhost:8000/storage/${selectedRequest.file_path}`}
+                                            href={`https://backend-production-8fda.up.railway.app/storage/${selectedRequest.file_path}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
