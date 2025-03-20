@@ -122,6 +122,69 @@ a:hover {
   line-height: 1.2;
 }
 
+
+/* 📍 Seagold Essentials Section */
+.seagold-essentials {
+  padding: 5rem 10%;
+  color: white;
+}
+
+.seagold-essentials-title {
+  text-align: center;
+  font-size: 3rem;
+  font-weight: 800;
+  color: white;
+  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+  margin-bottom: 1rem;
+}
+
+.seagold-essentials-subtext {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #F9F9F9;
+}
+
+/* Essentials List */
+.seagold-essentials-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Essentials Item */
+.seagold-essentials-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  border-radius: 10px;
+  background: #F9F9F9;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Reverse Layout */
+.seagold-essentials-reverse {
+  flex-direction: row-reverse;
+}
+
+/* Text Section */
+.seagold-essentials-text {
+  flex: 1;
+  color: #1E2022;
+}
+
+/* Image Section */
+.seagold-essentials-image {
+  flex: 1;
+  text-align: center;
+}
+
+.seagold-essentials-image img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
 /* 📝 Feedback Form */
 .feedback-form {
   padding: 3rem;

@@ -144,6 +144,50 @@ const Home = () => {
           </div>
         </div>
       </section>
+            {/* Nearby Essentials Section */}
+      <section className="seagold-essentials">
+        <div className="seagold-container">
+          <h2 className="seagold-essentials-title">Everything You Need Nearby!</h2>
+          <p className="seagold-essentials-subtext">
+            Everything you need within reach! From stores to laundry and restaurants.
+          </p>
+
+          <div className="seagold-essentials-list">
+            {/* 🏬 Convenience Store - Text on Left, Image on Right */}
+            <div className="seagold-essentials-item">
+              <div className="seagold-essentials-text">
+                <h3>24/7 Convenience Store</h3>
+                <p>Just a 5-minute walk from the dormitory for all your daily needs.</p>
+              </div>
+              <div className="seagold-essentials-image">
+                <img src="/images/store.jpg" alt="Convenience Store" />
+              </div>
+            </div>
+
+            {/* 🧺 Laundry Shop - Image on Left, Text on Right */}
+            <div className="seagold-essentials-item seagold-essentials-reverse">
+              <div className="seagold-essentials-text">
+                <h3>Laundry Shop</h3>
+                <p>Affordable and efficient laundry services just around the corner.</p>
+              </div>
+              <div className="seagold-essentials-image">
+                <img src="/images/laundry.jpg" alt="Laundry Shop" />
+              </div>
+            </div>
+
+            {/* 🍽️ Restaurant - Text on Left, Image on Right */}
+            <div className="seagold-essentials-item">
+              <div className="seagold-essentials-text">
+                <h3>Popular Restaurant</h3>
+                <p>Enjoy delicious meals within walking distance of the dormitory.</p>
+              </div>
+              <div className="seagold-essentials-image">
+                <img src="/images/restaurant.jpg" alt="Restaurant" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Feedback Form */}
       <section className="feedback-form">
@@ -156,7 +200,7 @@ const Home = () => {
             {["in-love", "happy", "neutral", "sad", "angry"].map((emoji) => (
               <img
                 key={emoji}
-                src={`http://localhost:8000/storage/icons/${emoji}.gif`}
+                src={`https://backend-production-8fda.up.railway.app/storage/icons/${emoji}.gif`}
                 alt={emoji}
                 className={`emoji ${selectedEmoji === emoji ? "selected" : ""}`}
                 onClick={() => setSelectedEmoji(emoji)}
@@ -181,6 +225,7 @@ const Home = () => {
           </div>
         </div>
       </section>
+  
 
       {/* Footer */}
       <footer className="footer">
