@@ -9,7 +9,7 @@ const PendingApplications = () => {
   const [selectedApplication, setSelectedApplication] = useState(null);
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/applications')
+    fetch('https://backend-production-8fda.up.railway.app/api/applications')
       .then(res => res.json())
       .then(data => {
         setApplications(data.applications || []);
@@ -36,7 +36,7 @@ const PendingApplications = () => {
     };
 
     try {
-      const response = await fetch(`http://localhost:8000/api/applications/${application.id}/accept`, {
+      const response = await fetch(`https://backend-production-8fda.up.railway.app/api/applications/${application.id}/accept`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
@@ -60,7 +60,7 @@ const PendingApplications = () => {
     if (!window.confirm('Decline this application?')) return;
 
     try {
-      const response = await fetch(`http://localhost:8000/api/applications/${applicationId}/decline`, {
+      const response = await fetch(`https://backend-production-8fda.up.railway.app/api/applications/${applicationId}/decline`, {
         method: 'DELETE',
       });
 
