@@ -7,15 +7,7 @@ const EventsBoard = () => {
     const [editMode, setEditMode] = useState(false);
     const [editingEventId, setEditingEventId] = useState(null);
     const [loading, setLoading] = useState(true);
-
-    const token = localStorage.getItem('token');  // Moved up
-
-    if (!token) {
-        console.error('No token found. Redirecting to login.');
-        window.location.href = '/login';
-        return null;
-    }
-
+    
     // Fetch all events
     useEffect(() => {
         const fetchEvents = async () => {
@@ -23,12 +15,13 @@ const EventsBoard = () => {
                 const response = await fetch('https://backend-production-8fda.up.railway.app/api/events', {
                     headers: { Authorization: `Bearer ${token}` },
                 });
-
-                if (!response.ok) {
-                    console.error('Failed to fetch events:', response.status);
+        
+                if (response.status === 401) {
+                    console.error('Unauthorized. Redirecting to login.');
+                    window.location.href = '/login';
                     return;
                 }
-                
+        
                 const data = await response.json();
                 setEvents(data);
             } catch (error) {
@@ -37,9 +30,17 @@ const EventsBoard = () => {
                 setLoading(false);
             }
         };
-
+    
         fetchEvents();
-    }, [token]);
+    }, []);
+    
+    const token = localStorage.getItem('token');
+        if (!token) {
+            console.error('No token found. Redirecting to login.');
+            window.location.href = '/login';
+            return;
+        }
+
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -49,54 +50,33 @@ const EventsBoard = () => {
             ? `https://backend-production-8fda.up.railway.app/api/events/${editingEventId}`
             : 'https://backend-production-8fda.up.railway.app/api/events';
 
-        try {
-            const response = await fetch(url, {
-                method,
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify(formData),
-            });
+        await fetch(url, {
+            method,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+            body: JSON.stringify(formData),
+        });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                console.error('Failed to save event:', errorData.message);
-                return;
-            }
+        setFormData({ date: '', title: '', description: '' });
+        setEditMode(false);
+        setEditingEventId(null);
 
-            setFormData({ date: '', title: '', description: '' });
-            setEditMode(false);
-            setEditingEventId(null);
-
-            // Refresh events
-            const eventsResponse = await fetch('https://backend-production-8fda.up.railway.app/api/events', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
-            const eventsData = await eventsResponse.json();
-            setEvents(eventsData);
-        } catch (error) {
-            console.error('Error saving event:', error);
-        }
+        // Refresh events
+        const response = await fetch('https://backend-production-8fda.up.railway.app/api/events');
+        const data = await response.json();
+        setEvents(data);
     };
 
     // Handle event deletion
     const handleDelete = async (id) => {
-        try {
-            const response = await fetch(`https://backend-production-8fda.up.railway.app/api/events/${id}`, {
-                method: 'DELETE',
-                headers: { Authorization: `Bearer ${token}` },
-            });
+        await fetch(`https://backend-production-8fda.up.railway.app/api/events/${id}`, {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        });
 
-            if (!response.ok) {
-                console.error('Failed to delete event');
-                return;
-            }
-
-            setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
-        } catch (error) {
-            console.error('Error deleting event:', error);
-        }
+        setEvents((prevEvents) => prevEvents.filter((event) => event.id !== id));
     };
 
     // Handle editing
