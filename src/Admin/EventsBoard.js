@@ -64,14 +64,14 @@ const EventsBoard = () => {
         setEditingEventId(null);
 
         // Refresh events
-        const response = await fetch('http://localhost:8000/api/events');
+        const response = await fetch('https://backend-production-8fda.up.railway.app/api/events');
         const data = await response.json();
         setEvents(data);
     };
 
     // Handle event deletion
     const handleDelete = async (id) => {
-        await fetch(`http://localhost:8000/api/events/${id}`, {
+        await fetch(`https://backend-production-8fda.up.railway.app/api/events/${id}`, {
             method: 'DELETE',
             headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         });
