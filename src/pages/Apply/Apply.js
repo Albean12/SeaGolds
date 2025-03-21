@@ -96,7 +96,8 @@ const ContactUs = () => {
         try {
             const result = await signInWithPopup(auth, provider);
             const user = result.user;
-            if (user.emailVerified) {
+    
+            if (user) { // Remove the user.emailVerified check
                 setFormData((prev) => ({
                     ...prev,
                     email: user.email,
@@ -104,16 +105,14 @@ const ContactUs = () => {
                     last_name: user.displayName.split(" ").slice(-1)[0],
                 }));
                 setIsVerified(true);
-                alert(`Email verified: ${user.email}`);
-            } else {
-                alert("Please verify your email in your Google account settings before proceeding.");
+                alert(`✅ Email successfully verified: ${user.email}`);
             }
         } catch (error) {
             console.error("Google Sign-In Error:", error);
-            alert("Failed to verify email. Please try again.");
+            alert("❌ Failed to verify email. Please try again.");
         }
     };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 

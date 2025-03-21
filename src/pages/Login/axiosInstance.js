@@ -63,6 +63,14 @@ axiosInstance.interceptors.response.use(
         try {
           await axiosInstance.get("/sanctum/csrf-cookie");
           console.log("✅ CSRF Token Refreshed!");
+
+          // ✅ Retry the original request
+          const retryConfig = error.config;
+          retryConfig.headers['X-XSRF-TOKEN'] = decodeURIComponent(
+            document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1]
+          );
+
+          return axiosInstance(retryConfig);
         } catch (csrfError) {
           console.error("❌ Failed to refresh CSRF token:", csrfError);
         }
