@@ -15,14 +15,27 @@ console.log("✅ Final API_BASE_URL:", API_BASE_URL);
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true, // ✅ Ensures cookies are included
+  withCredentials: true, // Ensures cookies are included
   headers: {
     "Content-Type": "application/json",
     "Accept": "application/json",
   },
 });
 
-// ✅ Attach Token Automatically if Exists
+// Fetch CSRF token on app startup
+const initializeCsrfToken = async () => {
+  try {
+    await axiosInstance.get("/sanctum/csrf-cookie");
+    console.log("✅ CSRF Token Initialized!");
+  } catch (error) {
+    console.error("❌ Failed to initialize CSRF token:", error);
+  }
+};
+
+// Call this function when your app starts (e.g., in your main App.js or index.js)
+initializeCsrfToken();
+
+// Attach Token Automatically if Exists
 axiosInstance.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem("token");
@@ -39,7 +52,7 @@ axiosInstance.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// ✅ Handle Expired Tokens & Auto Redirect
+// Handle Expired Tokens & Auto Redirect
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
@@ -48,7 +61,7 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
 
-      // ✅ If 401 Unauthorized, force logout & redirect to login
+      // If 401 Unauthorized, force logout & redirect to login
       if (status === 401) {
         console.warn("⚠️ Unauthorized! Clearing session and redirecting to login...");
         localStorage.removeItem("token");
@@ -57,20 +70,15 @@ axiosInstance.interceptors.response.use(
         window.location.href = "/login"; // Redirect to login page
       }
 
-      // ✅ If 419 CSRF error, attempt to refresh CSRF token
+      // If 419 CSRF error, attempt to refresh CSRF token
       if (status === 419) {
         console.warn("⚠️ CSRF token expired, refreshing...");
         try {
           await axiosInstance.get("/sanctum/csrf-cookie");
           console.log("✅ CSRF Token Refreshed!");
 
-          // ✅ Retry the original request
-          const retryConfig = error.config;
-          retryConfig.headers['X-XSRF-TOKEN'] = decodeURIComponent(
-            document.cookie.split('; ').find(row => row.startsWith('XSRF-TOKEN='))?.split('=')[1]
-          );
-
-          return axiosInstance(retryConfig);
+          // Retry the original request (Axios will automatically handle the X-XSRF-TOKEN header)
+          return axiosInstance(error.config);
         } catch (csrfError) {
           console.error("❌ Failed to refresh CSRF token:", csrfError);
         }
