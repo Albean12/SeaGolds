@@ -34,7 +34,7 @@ const PaymentTenant = () => {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const userResponse = await fetch('http://localhost:8000/api/auth/user', {
+                const userResponse = await fetch('https://backend-production-8fda.up.railway.app/api/auth/user', {
                     headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 });
                 const user = await userResponse.json();
@@ -56,7 +56,7 @@ const PaymentTenant = () => {
 
     const fetchPaymentData = async (id) => {
         try {
-            const res = await fetch(`http://localhost:8000/api/tenant-payments/${id}`, {
+            const res = await fetch(`https://backend-production-8fda.up.railway.app/api/tenant-payments/${id}`, {
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
             });
     
@@ -116,7 +116,7 @@ const PaymentTenant = () => {
         requestData.append('receipt', formData.receipt);
     
         try {
-            const response = await fetch('http://localhost:8000/api/payments', {
+            const response = await fetch('https://backend-production-8fda.up.railway.app/api/payments', {
                 method: 'POST',
                 headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
                 body: requestData,
