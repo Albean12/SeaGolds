@@ -12,7 +12,7 @@ const RoomInfo = () => {
         const fetchAssignedUnit = async () => {
             try {
                 const token = localStorage.getItem('token');
-                const response = await fetch('http://localhost:8000/api/tenant/unit', {
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/tenant/unit', {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

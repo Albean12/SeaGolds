@@ -14,7 +14,7 @@ const Gallery = () => {
   // Fetch categories and images from the backend
   const fetchCategories = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/gallery'); // No Authorization header
+      const response = await fetch('https://backend-production-8fda.up.railway.appapi/gallery'); // No Authorization header
       if (!response.ok) {
         throw new Error(`HTTP Error: ${response.status}`);
       }
@@ -32,7 +32,7 @@ const Gallery = () => {
           acc[image.category] = [];
         }
         acc[image.category].push({
-          url: `http://localhost:8000/storage/${image.image_path}`,
+          url: `https://backend-production-8fda.up.railway.appstorage/${image.image_path}`,
           title: image.title,
           description: image.description,
         });

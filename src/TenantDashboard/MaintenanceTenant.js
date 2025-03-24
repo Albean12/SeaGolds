@@ -23,7 +23,7 @@ const MaintenanceTenant = () => {
     useEffect(() => {
         const fetchRequests = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/tenant/maintenance-requests', {
+                const response = await fetch('https://backend-production-8fda.up.railway.app/api/tenant/maintenance-requests', {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` },
                 });
