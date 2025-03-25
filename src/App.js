@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import SeagoldNavbar from './components/SeagoldNavbar.js';  // ✅ Use updated Navbar
+import SeagoldNavbar from './components/SeagoldNavbar.js';
 import Home from './pages/Home/Home';
 import Location from './pages/Location/Location';
 import Gallery from './pages/Gallery/Gallery';
@@ -26,7 +26,7 @@ import Bills from './TenantDashboard/PaymentTenant';
 import Maintenance from './TenantDashboard/MaintenanceTenant';
 import Map from './TenantDashboard/MapTenant';
 import Apply from './pages/Apply/Apply';
-import { API_BASE_URL } from "./config.js"; // ✅ Import backend URL from config.js
+import { API_BASE_URL } from "./config.js";
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -63,13 +63,13 @@ const App = () => {
       if (!response.ok) throw new Error("Token invalid");
   
       const user = await response.json();
-      console.log("Fetched User Data:", user); // Debugging the user data
-  
+      console.log("Fetched User Data:", user);
+
       if (user.role) {
-        setRole(user.role); // Set role as returned by backend
-        localStorage.setItem('role', user.role); // Persist role in localStorage
+        setRole(user.role);
+        localStorage.setItem('role', user.role);
       } else {
-        setRole("guest_user"); // Fallback for guest users
+        setRole("guest_user");
         localStorage.setItem('role', "guest_user");
       }
       setIsLoggedIn(true);
@@ -85,11 +85,10 @@ const App = () => {
     checkAuth();
   }, []);
 
-  // Handle logout function
   const handleLogout = () => {
-    localStorage.clear(); // Clear all local storage data
-    setRole("null"); // Set default role to guest_user
-    setIsLoggedIn(false); // Mark user as logged out
+    localStorage.clear();
+    setRole(null);
+    setIsLoggedIn(false);
   };
 
   const handleLoginSuccess = (userRole) => {
@@ -98,7 +97,7 @@ const App = () => {
       setRole(userRole);
       localStorage.setItem('role', userRole);
     } else {
-      setRole("general_user"); // Fallback for guest users
+      setRole("general_user");
       localStorage.setItem('role', "general_user");
     }
     setShowLoginModal(false);
@@ -106,59 +105,58 @@ const App = () => {
 
   return (
     <GoogleOAuthProvider clientId={clientId}>
-      <Router>
-        <div className="app-content">
-          {/* Debugging role */}
-          {console.log("✅ API_BASE_URL:", API_BASE_URL)}
-          {console.log("Current Role State:", role)}
+      <div className="app-container"> {/* Added wrapper div */}
+        <Router>
+          {/* Navbar moved outside app-content */}
+          {!['admin', 'tenant'].includes(role) && (
+            <SeagoldNavbar onLogout={handleLogout} />
+          )}
 
-          {/* Conditionally render Navbar */}
-          {role !== 'admin' && role !== 'tenant' && <SeagoldNavbar onLogout={handleLogout} />}
+          <div className="app-content">
+            {console.log("✅ API_BASE_URL:", API_BASE_URL)}
+            {console.log("Current Role State:", role)}
 
-          <Routes>
-            {/* General routes */}
-            <Route path="/" element={<Home />} />
-            <Route path="/location" element={<Location />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/units" element={<Units />} />
-            <Route path="/book-tour" element={<TourBooking />} />
-            <Route path="/apply" element={<Apply />} />
-            <Route path="/login" element={<Login setRole={handleLoginSuccess} />} />
-            <Route path="/create-account" element={<CreateAccount />} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/location" element={<Location />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/units" element={<Units />} />
+              <Route path="/book-tour" element={<TourBooking />} />
+              <Route path="/apply" element={<Apply />} />
+              <Route path="/login" element={<Login setRole={handleLoginSuccess} />} />
+              <Route path="/create-account" element={<CreateAccount />} />
 
-            {/* Admin-only route */}
-            <Route
-              path="/admin/dashboard/*"
-              element={role === 'admin' ? <AdminDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
-            >
-              <Route path="pending-applications" element={<PendingApplications />} />
-              <Route path="unit-management" element={<UnitManagement />} />
-              <Route path="events-board" element={<EventsBoard />} />
-              <Route path="manage-tenants" element={<ManageTenants />} />
-              <Route path="payment-dashboard" element={<PaymentAdmin />} />
-              <Route path="maintenance-requests" element={<MaintenanceRequests />} />
-              <Route path="tour-bookings" element={<AdminTourBookings />} />
-              <Route path="gallery-admin" element={<GalleryAdmin />} />
-              <Route path="feedback-admin" element={<FeedbackAdmin />} />
-            </Route>
+              <Route
+                path="/admin/dashboard/*"
+                element={role === 'admin' ? <AdminDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
+              >
+                <Route path="pending-applications" element={<PendingApplications />} />
+                <Route path="unit-management" element={<UnitManagement />} />
+                <Route path="events-board" element={<EventsBoard />} />
+                <Route path="manage-tenants" element={<ManageTenants />} />
+                <Route path="payment-dashboard" element={<PaymentAdmin />} />
+                <Route path="maintenance-requests" element={<MaintenanceRequests />} />
+                <Route path="tour-bookings" element={<AdminTourBookings />} />
+                <Route path="gallery-admin" element={<GalleryAdmin />} />
+                <Route path="feedback-admin" element={<FeedbackAdmin />} />
+              </Route>
 
-            {/* Tenant-only route */}
-            <Route
-              path="/tenant/dashboard/*"
-              element={role === 'tenant' ? <TenantDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
-            >
-              <Route path="home" element={<HomeTenant />} />
-              <Route path="room-info" element={<RoomInfo />} />
-              <Route path="bills" element={<Bills />} />
-              <Route path="maintenance" element={<Maintenance />} />
-              <Route path="map" element={<Map />} />
-            </Route>
+              <Route
+                path="/tenant/dashboard/*"
+                element={role === 'tenant' ? <TenantDashboard onLogout={handleLogout} /> : <Navigate to="/login" />}
+              >
+                <Route path="home" element={<HomeTenant />} />
+                <Route path="room-info" element={<RoomInfo />} />
+                <Route path="bills" element={<Bills />} />
+                <Route path="maintenance" element={<Maintenance />} />
+                <Route path="map" element={<Map />} />
+              </Route>
 
-            {/* Redirect any unknown routes */}
-            <Route path="*" element={<Navigate to="/" />} />
-          </Routes>
-        </div>
-      </Router>
+              <Route path="*" element={<Navigate to="/" />} />
+            </Routes>
+          </div>
+        </Router>
+      </div>
     </GoogleOAuthProvider>
   );
 };
