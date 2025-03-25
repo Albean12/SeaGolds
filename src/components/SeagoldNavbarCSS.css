@@ -1,25 +1,38 @@
-/* 📌 Container for Navbar */
+/* 📌 Container for Navbar - Enhanced */
 .seagold-navbar-container {
   position: sticky;
   top: 0;
+  left: 0; /* Ensure full width coverage */
   z-index: 1000;
   backdrop-filter: blur(8px);
-  background-color: rgba(40, 82, 122, 0.95);
+  background-color: rgba(40, 82, 122, 0.9); /* Start at 90% opacity */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 100% !important;
+  width: 100%;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); /* Smoother transition */
+  
+  /* Safari support */
+  position: -webkit-sticky;
 }
 
-/* 📌 Navbar Structure */
+/* Scrolled state - more opaque */
+.seagold-navbar-container.scrolled {
+  background-color: rgba(40, 82, 122, 0.98); /* 98% opacity when scrolled */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15); /* Enhanced shadow */
+}
+
+/* 📌 Navbar Structure - Unchanged */
 .seagold-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   width: 100%;
-  font-family: 'Poppins', sans-serif; /* ✅ Use Poppins Font */
+  font-family: 'Poppins', sans-serif;
+  max-width: 1400px; /* Added for better wide-screen control */
+  margin: 0 auto; /* Center the navbar */
 }
 
-/* 📌 Logo */
+/* 📌 Logo - Unchanged */
 .seagold-navbar-logo {
   display: flex;
   align-items: center;
@@ -28,6 +41,11 @@
 
 .seagold-navbar-logo img {
   height: 40px;
+  transition: transform 0.3s ease; /* Added hover effect */
+}
+
+.seagold-navbar-logo:hover img {
+  transform: scale(1.05); /* Subtle hover animation */
 }
 
 .seagold-navbar-logo-text {
@@ -36,26 +54,44 @@
   font-weight: bold;
 }
 
-/* 📌 Navbar Links */
+/* 📌 Navbar Links - Enhanced */
 .seagold-navbar-links {
   display: flex;
-  gap: 4.5rem; /* ✅ Provides space between links */
+  gap: 4.5rem;
+  transition: gap 0.3s ease; /* Smooth gap adjustment */
 }
 
 .seagold-navbar-link {
   color: #F9F9F9;
   font-size: 1rem;
   text-decoration: none;
-  transition: color 0.3s;
-  font-family: 'Poppins', sans-serif; /* ✅ Ensure Poppins font is applied */
+  transition: all 0.3s ease; /* Enhanced transition */
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
+  position: relative;
 }
 
 .seagold-navbar-link:hover {
   color: #FFC857;
 }
 
-/* 📌 Login Button */
+/* Underline animation */
+.seagold-navbar-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #FFC857;
+  transition: width 0.3s ease;
+}
+
+.seagold-navbar-link:hover::after {
+  width: 100%;
+}
+
+/* 📌 Login Button - Enhanced */
 .seagold-navbar-login {
   display: flex;
   align-items: center;
@@ -67,17 +103,92 @@
   gap: 0.5rem;
   background-color: #FFC857;
   color: #1E2022;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.25rem; /* Slightly more padding */
   border-radius: 5px;
   text-decoration: none;
-  transition: background-color 0.3s;
-}
-
-.seagold-navbar-login-button img {
-  height: 20px;
+  transition: all 0.3s ease;
+  font-weight: 600;
 }
 
 .seagold-navbar-login-button:hover {
   background-color: #1E2022;
   color: #F9F9F9;
+  transform: translateY(-2px); /* Lift effect */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.seagold-navbar-login-button img {
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.seagold-navbar-login-button:hover img {
+  transform: scale(1.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+  .seagold-navbar-links {
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .seagold-navbar {
+    padding: 1rem;
+  }
+  .seagold-navbar-links {
+    gap: 2rem;
+  }
+}
+/* Mobile Menu Styles */
+.mobile-menu-button {
+  display: none;
+  background: none;
+  border: none;
+  color: #F9F9F9;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.close-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.hamburger-icon {
+  font-size: 1.5rem;
+}
+
+/* Responsive Behavior */
+@media (max-width: 768px) {
+  .seagold-navbar-links {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    right: 0;
+    background-color: rgba(40, 82, 122, 0.98);
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem 0;
+    height: calc(100vh - 80px);
+    transform: translateY(-150%);
+    transition: transform 0.3s ease;
+    z-index: 999;
+  }
+
+  .seagold-navbar-links.mobile-open {
+    transform: translateY(0);
+  }
+
+  .mobile-menu-button {
+    display: block;
+  }
+
+  .seagold-navbar-login {
+    margin-left: auto;
+    margin-right: 1rem;
+  }
 }
