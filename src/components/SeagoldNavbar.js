@@ -1,94 +1,102 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './SeagoldNavbarCSS.css';
 
 const SeagoldNavbar = () => {
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState('');
 
+  // Set active link based on route
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 10;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
-    };
+    setActiveLink(location.pathname);
+  }, [location]);
 
-    // Use passive listener for better performance
+  // Scroll effect for desktop
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    // Cleanup
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [scrolled]);
+  }, []);
 
-  // Close mobile menu when clicking a link
-  const closeMobileMenu = () => {
-    setMobileMenuOpen(false);
-  };
+  // Navigation items
+  const navItems = [
+    { path: '/', label: 'Home' },
+    { path: '/location', label: 'Location' },
+    { path: '/gallery', label: 'Gallery' },
+    { path: '/units', label: 'Units' },
+    { path: '/apply', label: 'Apply' },
+    { path: '/login', label: 'Account' }
+  ];
 
   return (
-    <div className={`seagold-navbar-container ${scrolled ? 'scrolled' : ''}`}>
-      <div className="seagold-navbar">
-        {/* Logo Section */}
-        <div className="seagold-navbar-logo">
-          <Link to="/" onClick={closeMobileMenu}>
-            <img 
-              src="/seagoldlogo.jpg" // Changed to absolute path
-              alt="Seagold Dormitory Logo"
-              loading="lazy" // Better performance
-            />
-          </Link>
-          <span className="seagold-navbar-logo-text"></span>
-        </div>
+    <>
+      {/* Desktop Navbar (stays at top) */}
+      <div className={`seagold-navbar-container ${scrolled ? 'scrolled' : ''}`}>
+        <div className="seagold-navbar">
+          {/* Logo */}
+          <div className="seagold-navbar-logo">
+            <Link to="/">
+              <img 
+                src="/seagoldlogo.jpg" 
+                alt="Seagold Dormitory Logo"
+                loading="lazy"
+              />
+            </Link>
+            <span className="seagold-navbar-logo-text"></span>
+          </div>
 
-        {/* Desktop Navigation */}
-        <div className={`seagold-navbar-links ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-          <NavLink to="/" onClick={closeMobileMenu}>Home</NavLink>
-          <NavLink to="/location" onClick={closeMobileMenu}>Location</NavLink>
-          <NavLink to="/gallery" onClick={closeMobileMenu}>Gallery</NavLink>
-          <NavLink to="/units" onClick={closeMobileMenu}>Units</NavLink>
-          <NavLink to="/apply" onClick={closeMobileMenu}>Apply Now!</NavLink>
-        </div>
+          {/* Desktop Navigation */}
+          <div className="seagold-navbar-links">
+            {navItems.filter(item => item.path !== '/login').map(item => (
+              <NavLink 
+                key={item.path}
+                to={item.path}
+                className={activeLink === item.path ? 'active' : ''}
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
 
-        {/* Login Section */}
-        <div className="seagold-navbar-login">
-          <Link 
-            to="/login" 
-            className="seagold-navbar-login-button"
-            onClick={closeMobileMenu}
-          >
-            <span>Account</span>
-            <img 
-              src="/user.png" 
-              alt="User Icon" 
-              loading="lazy" // Better performance
-            />
-          </Link>
+          {/* Login Section */}
+          <div className="seagold-navbar-login">
+            <Link 
+              to="/login" 
+              className="seagold-navbar-login-button"
+            >
+              <span>Account</span>
+              <img 
+                src="/user.png" 
+                alt="User Icon" 
+                loading="lazy"
+              />
+            </Link>
+          </div>
         </div>
-
-        {/* Mobile Menu Button (Hidden on desktop) */}
-        <button 
-          className="mobile-menu-button"
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label="Toggle navigation menu"
-        >
-          {mobileMenuOpen ? (
-            <span className="close-icon">×</span>
-          ) : (
-            <span className="hamburger-icon">☰</span>
-          )}
-        </button>
       </div>
-    </div>
+
+      {/* Mobile Bottom Navigation */}
+      <div className="mobile-bottom-nav">
+        {navItems.map(item => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className={`nav-item ${activeLink === item.path ? 'active' : ''}`}
+          >
+            <span className="nav-label">{item.label}</span>
+          </Link>
+        ))}
+      </div>
+    </>
   );
 };
 
-// Reusable NavLink component for consistent styling
-const NavLink = ({ to, onClick, children }) => (
+// Reusable NavLink component
+const NavLink = ({ to, className, children }) => (
   <Link 
     to={to} 
-    className="seagold-navbar-link" 
-    onClick={onClick}
+    className={`seagold-navbar-link ${className}`}
   >
     {children}
   </Link>
