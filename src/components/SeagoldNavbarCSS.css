@@ -227,10 +227,8 @@
 
 /* Border design for active item */
 .nav-item.active {
-  color: #28527a;
   font-weight: 600;
-  background: rgba(40, 82, 122, 0.05);
-  border: 1px solid rgba(40, 82, 122, 0.15);
+
 }
 
 /* Subtle border between items - UPDATED */
@@ -267,7 +265,6 @@
 @media (max-width: 400px) {
   .nav-item {
         font-size: 0.8rem;
-        padding: 0.2rem;
         font-weight: bolder;
   }
   .nav-icon {
@@ -278,7 +275,6 @@
 @media (min-width: 401px) and (max-width: 600px) {
   .nav-item {
     font-size: 0.9rem; 
-    padding: 0.2rem;
     font-weight: bolder;
   }
 }
