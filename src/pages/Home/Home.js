@@ -76,25 +76,61 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Facilities Section */}
+                {/* Facilities Section - Enhanced */}
       <section className="facilities-section">
         <div className="facilities-container">
           <h2 className="text-why">Why Choose Us?</h2>
           <div className="facility-grid">
+            {/* Card 1 - Modern Facilities */}
             <div className="feature-card">
-              <img src="/sample1.jpg" alt="Modern facilities" />
-              <h3>Modern Facilities</h3>
-              <p>State-of-the-art amenities and top-notch services.</p>
+              <div className="image-container">
+                <img 
+                  src="/sample1.jpg" 
+                  alt="Modern facilities" 
+                  className="feature-image"
+                  loading="lazy"
+                  onError={(e) => {
+                    e.target.src = '/placeholder.jpg';
+                    e.target.alt = 'Modern facilities image';
+                  }}
+                />
+              </div>
+              <div className="card-content">
+                <h3>Modern Facilities</h3>
+                <p>State-of-the-art amenities and top-notch services.</p>
+              </div>
             </div>
+
+            {/* Card 2 - Smart Technology */}
             <div className="feature-card">
-              <img src="/feature2.jpeg" alt="Smart technology" />
-              <h3>Smart Technology</h3>
-              <p>Smart room controls, high-speed internet, and more.</p>
+              <div className="image-container">
+                <img 
+                  src="/feature2.jpeg" 
+                  alt="Smart technology" 
+                  className="feature-image"
+                  loading="lazy"
+                />
+              </div>
+              <div className="card-content">
+                <h3>Smart Technology</h3>
+                <p>Smart room controls, high-speed internet, and more.</p>
+              </div>
             </div>
+
+            {/* Card 3 - Prime Location */}
             <div className="feature-card">
-              <img src="/feature3.jpeg" alt="Prime location" />
-              <h3>Prime Location</h3>
-              <p>Located near top universities and public transport.</p>
+              <div className="image-container">
+                <img 
+                  src="/feature3.jpeg" 
+                  alt="Prime location" 
+                  className="feature-image"
+                  loading="lazy"
+                />
+              </div>
+              <div className="card-content">
+                <h3>Prime Location</h3>
+                <p>Located near top universities and public transport.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -112,33 +148,33 @@ const Home = () => {
             {/* University 1 - Text on Left, Image on Right */}
             <div className="seagold-university-item">
               <div className="seagold-university-text">
-                <h3>University of Example</h3>
+                <h3>FEU Institute of Technology</h3>
                 <p>Just a 10-minute walk from our dormitory.</p>
               </div>
               <div className="seagold-university-image">
-                <img src="/images/university1.jpg" alt="University 1" />
+                <img src="images/feutech.jpg" alt="University 1" />
               </div>
             </div>
 
             {/* University 2 - Image on Left, Text on Right */}
             <div className="seagold-university-item seagold-reverse">
             <div className="seagold-university-text">
-                <h3>Example State College</h3>
+                <h3>University Of The East</h3>
                 <p>Accessible by public transport within 15 minutes.</p>
               </div>
               <div className="seagold-university-image">
-                <img src="/images/university2.jpg" alt="University 2" />
+                <img src="/images/UEmanila.jpg" alt="University 2" />
               </div>
             </div>
 
             {/* University 3 - Text on Left, Image on Right */}
             <div className="seagold-university-item">
               <div className="seagold-university-text">
-                <h3>Tech Institute</h3>
+                <h3>The University of Santo Tomas</h3>
                 <p>Located just across the street for easy access.</p>
               </div>
               <div className="seagold-university-image">
-                <img src="/images/university3.jpg" alt="University 3" />
+                <img src="/images/UST-Zoom-Background.jpg" alt="University 3" />
               </div>
             </div>
           </div>
