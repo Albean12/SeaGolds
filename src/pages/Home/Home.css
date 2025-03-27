@@ -18,18 +18,42 @@ a:hover {
 }
 
 
-/* 🎭 Hero Section */
+/* 🎭 Hero Section - Enhanced Version */
 .hero-section {
-  height: 80vh;
+  position: relative; /* NEW: Needed for overlay positioning */
+  height: 100vh; /* CHANGED: From 80vh to full viewport height */
+  min-height: 600px; /* NEW: Prevent content squishing on small screens */
   display: flex;
   align-items: center;
   justify-content: start;
   padding: 0 10%;
   text-align: left;
+  background: url('/public/images/samplebg.jpeg') no-repeat center center/cover; /* NEW: Background image */
+  overflow: hidden; /* NEW: Hide any overflow from animations */
 }
 
+/* NEW: Gradient overlay for better text readability */
 .hero-overlay {
+  position: relative; /* Changed from default to allow z-index */
   max-width: 600px;
+  z-index: 2; /* NEW: Ensure content stays above overlay */
+  animation: fadeInUp 1s ease-out; /* NEW: Entrance animation */
+}
+
+/* NEW: Pseudo-element for the overlay effect */
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.7) 0%, /* Stronger on left for left-aligned text */
+    rgba(0, 0, 0, 0.3) 100% /* Lighter gradient toward right */
+  );
+  z-index: 1; /* NEW: Places between background and content */
 }
 
 .hero-section h1 {
@@ -38,6 +62,48 @@ a:hover {
   color: white;
   text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
   line-height: 1.2;
+  margin-bottom: 1rem; /* NEW: Added spacing */
+}
+
+/* NEW: Animation for smooth entrance */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NEW: Responsive adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    height: 80vh; /* Revert to original height on mobile */
+    min-height: 500px; /* Smaller minimum for mobile */
+    padding: 0 5%; /* Reduced side padding */
+    justify-content: center; /* Center content on mobile */
+    text-align: center; /* Center text on mobile */
+  }
+
+  .hero-overlay {
+    max-width: 100%; /* Full width on mobile */
+    padding: 0 20px; /* Add some side padding */
+  }
+
+  .hero-section h1 {
+    font-size: 2.5rem; /* Smaller heading on mobile */
+  }
+
+  /* NEW: Adjust gradient for mobile centering */
+  .hero-section::before {
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.3) 100%
+    );
+  }
 }
 
 .hero-section p {
