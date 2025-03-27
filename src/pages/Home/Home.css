@@ -107,9 +107,10 @@ a:hover {
 
 .hero-section p {
   font-size: 1.5rem;
-  font-weight: 500;
+  font-weight: 700;
   opacity: 0.9;
   margin-top: 10px;
+  color: goldenrod;
 }
 
 /* 🔘 Button Group */
@@ -151,7 +152,6 @@ a:hover {
 /* ⭐ Facilities Section - Enhanced */
 .facilities-section {
   padding: 4rem 10%;
-  background: linear-gradient(to right, #0a4da1, #1a73e8);
   color: white;
 }
 
@@ -246,32 +246,56 @@ a:hover {
   }
 }
 
-/* 📍 Seagold Essentials Section */
+/* 📍 Seagold Essentials Section - Enhanced */
 .seagold-essentials {
-  padding: 5rem 10%;
-  color: white;
+  padding: 6rem 10%;
+  position: relative;
+  overflow: hidden;
+}
+
+.seagold-essentials::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
 }
 
 .seagold-essentials-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.8rem;
   font-weight: 800;
   color: white;
-  text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.4);
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
   margin-bottom: 1rem;
+  position: relative;
+  z-index: 2;
 }
 
 .seagold-essentials-subtext {
   text-align: center;
-  margin-bottom: 2rem;
-  color: #F9F9F9;
+  margin-bottom: 3rem;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* Essentials List */
 .seagold-essentials-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 /* Essentials Item */
@@ -279,11 +303,16 @@ a:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 2rem;
-  padding: 1.5rem;
-  border-radius: 10px;
-  background: #F9F9F9;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  gap: 3rem;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+}
+
+.seagold-essentials-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
 }
 
 /* Reverse Layout */
@@ -294,18 +323,88 @@ a:hover {
 /* Text Section */
 .seagold-essentials-text {
   flex: 1;
-  color: #1E2022;
+  padding: 1rem;
+}
+
+.seagold-essentials-text h3 {
+  color: white;
+  font-size: 2.6rem;
+  margin-bottom: 0rem;
+  font-weight: bolder;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.seagold-essentials-text p {
+  color: black;
+  line-height: 1.7;
+  font-size: 1rem;
 }
 
 /* Image Section */
 .seagold-essentials-image {
   flex: 1;
-  text-align: center;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.seagold-essentials-item:hover .seagold-essentials-image {
+  transform: scale(1.02);
 }
 
 .seagold-essentials-image img {
-  max-width: 100%;
-  border-radius: 10px;
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.seagold-essentials-item:hover .seagold-essentials-image img {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+  .seagold-essentials-item,
+  .seagold-essentials-reverse {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .seagold-essentials-text,
+  .seagold-essentials-image {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .seagold-essentials {
+    padding: 4rem 5%;
+  }
+  
+  .seagold-essentials-title {
+    font-size: 2.2rem;
+  }
+  
+  .seagold-essentials-subtext {
+    font-size: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .seagold-essentials-item {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .seagold-essentials-title {
+    font-size: 2rem;
+  }
+  
+  .seagold-essentials-text h3 {
+    font-size: 1.4rem;
+  }
 }
 
 /* 📝 Feedback Form */

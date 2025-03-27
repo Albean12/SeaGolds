@@ -136,51 +136,100 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Nearby Universities Section */}
-      <section className="seagold-universities">
-        <div className="seagold-container">
-          <h2 className="seagold-title">Nearby Universities</h2>
-          <p className="seagold-subtext">
-            Our dormitory is located near top universities, making it the perfect choice for students.
-          </p>
+              {/* Nearby Universities Section - Enhanced */}
+          <section className="seagold-universities">
+            <div className="seagold-container">
+              <h2 className="seagold-title">Nearby Universities</h2>
+              <p className="seagold-subtext">
+                Our dormitory is located near top universities, making it the perfect choice for students.
+              </p>
 
-          <div className="seagold-university-list">
-            {/* University 1 - Text on Left, Image on Right */}
-            <div className="seagold-university-item">
-              <div className="seagold-university-text">
-                <h3>FEU Institute of Technology</h3>
-                <p>Just a 10-minute walk from our dormitory.</p>
-              </div>
-              <div className="seagold-university-image">
-                <img src="images/feutech.jpg" alt="University 1" />
+              <div className="seagold-university-list">
+                {/* University 1 - FEU Tech */}
+                <div className="seagold-university-item">
+                  <div className="seagold-university-text">
+                    <div className="university-header">
+                      <img 
+                        src="/images/feu-logo.png" 
+                        alt="FEU Tech Logo" 
+                        className="university-logo"
+                        loading="lazy"
+                      />
+                      <h3>FEU Institute of Technology</h3>
+                    </div>
+                    <p>Just a 10-minute walk from our dormitory.</p>
+                    <div className="distance-badge">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div className="seagold-university-image">
+                    <img 
+                      src="images/feutech.jpg" 
+                      alt="FEU Tech Campus" 
+                      loading="lazy"
+                      className="campus-image"
+                    />
+                  </div>
+                </div>
+
+                {/* University 2 - UE Manila */}
+                <div className="seagold-university-item seagold-reverse">
+                  <div className="seagold-university-text">
+                    <div className="university-header">
+                      <img 
+                        src="/images/ue-logo.png" 
+                        alt="UE Logo" 
+                        className="university-logo"
+                        loading="lazy"
+                      />
+                      <h3>University Of The East</h3>
+                    </div>
+                    <p>Accessible by public transport within 15 minutes.</p>
+                    <div className="distance-badge">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div className="seagold-university-image">
+                    <img 
+                      src="/images/UEmanila.jpg" 
+                      alt="UE Manila Campus" 
+                      loading="lazy"
+                      className="campus-image"
+                    />
+                  </div>
+                </div>
+
+                {/* University 3 - UST */}
+                <div className="seagold-university-item">
+                  <div className="seagold-university-text">
+                    <div className="university-header">
+                      <img 
+                        src="/images/ust-logo.png" 
+                        alt="UST Logo" 
+                        className="university-logo"
+                        loading="lazy"
+                      />
+                      <h3>The University of Santo Tomas</h3>
+                    </div>
+                    <p>Located just across the street for easy access.</p>
+                    <div className="distance-badge">
+                      <span></span>
+                    </div>
+                  </div>
+                  <div className="seagold-university-image">
+                    <img 
+                      src="/images/UST-Zoom-Background.jpg" 
+                      alt="UST Campus" 
+                      loading="lazy"
+                      className="campus-image"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
+          </section>
 
-            {/* University 2 - Image on Left, Text on Right */}
-            <div className="seagold-university-item seagold-reverse">
-            <div className="seagold-university-text">
-                <h3>University Of The East</h3>
-                <p>Accessible by public transport within 15 minutes.</p>
-              </div>
-              <div className="seagold-university-image">
-                <img src="/images/UEmanila.jpg" alt="University 2" />
-              </div>
-            </div>
-
-            {/* University 3 - Text on Left, Image on Right */}
-            <div className="seagold-university-item">
-              <div className="seagold-university-text">
-                <h3>The University of Santo Tomas</h3>
-                <p>Located just across the street for easy access.</p>
-              </div>
-              <div className="seagold-university-image">
-                <img src="/images/UST-Zoom-Background.jpg" alt="University 3" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-            {/* Nearby Essentials Section */}
+            {/* Nearby Essentials Section - Linked to Location Page */}
       <section className="seagold-essentials">
         <div className="seagold-container">
           <h2 className="seagold-essentials-title">Everything You Need Nearby!</h2>
@@ -189,36 +238,78 @@ const Home = () => {
           </p>
 
           <div className="seagold-essentials-list">
-            {/* 🏬 Convenience Store - Text on Left, Image on Right */}
+            {/* Convenience Store */}
             <div className="seagold-essentials-item">
               <div className="seagold-essentials-text">
-                <h3>24/7 Convenience Store</h3>
+                <div className="essentials-header">
+                  <span className="essentials-icon"></span>
+                  <h3>24/7 Convenience Store</h3>
+                </div>
                 <p>Just a 5-minute walk from the dormitory for all your daily needs.</p>
+                <Link 
+                  to="/location#convenience-store" 
+                  className="view-map-btn"
+                >
+                  View on Map →
+                </Link>
               </div>
               <div className="seagold-essentials-image">
-                <img src="/images/store.jpg" alt="Convenience Store" />
+                <img 
+                  src="/images/storesample1.jpg" 
+                  alt="Convenience Store" 
+                  loading="lazy"
+                  className="essentials-photo"
+                />
               </div>
             </div>
 
-            {/* 🧺 Laundry Shop - Image on Left, Text on Right */}
+            {/* Laundry Shop */}
             <div className="seagold-essentials-item seagold-essentials-reverse">
               <div className="seagold-essentials-text">
-                <h3>Laundry Shop</h3>
+                <div className="essentials-header">
+                  <span className="essentials-icon"></span>
+                  <h3>Laundry Shop</h3>
+                </div>
                 <p>Affordable and efficient laundry services just around the corner.</p>
+                <Link 
+                  to="/location#laundry-shop" 
+                  className="view-map-btn"
+                >
+                  View on Map →
+                </Link>
               </div>
               <div className="seagold-essentials-image">
-                <img src="/images/laundry.jpg" alt="Laundry Shop" />
+                <img 
+                  src="/images/laundrysample.jpg" 
+                  alt="Laundry Shop" 
+                  loading="lazy"
+                  className="essentials-photo"
+                />
               </div>
             </div>
 
-            {/* 🍽️ Restaurant - Text on Left, Image on Right */}
+            {/* Restaurant */}
             <div className="seagold-essentials-item">
               <div className="seagold-essentials-text">
-                <h3>Popular Restaurant</h3>
+                <div className="essentials-header">
+                  <span className="essentials-icon"></span>
+                  <h3>Popular Restaurant</h3>
+                </div>
                 <p>Enjoy delicious meals within walking distance of the dormitory.</p>
+                <Link 
+                  to="/location#restaurant" 
+                  className="view-map-btn"
+                >
+                  View on Map →
+                </Link>
               </div>
               <div className="seagold-essentials-image">
-                <img src="/images/restaurant.jpg" alt="Restaurant" />
+                <img 
+                  src="/images/fastfoodsample.jpg" 
+                  alt="Restaurant" 
+                  loading="lazy"
+                  className="essentials-photo"
+                />
               </div>
             </div>
           </div>
