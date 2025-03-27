@@ -263,14 +263,54 @@ const Home = () => {
       </section>
   
 
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <p className="text-center">&copy; 2024 Seagold Dormitory. All rights reserved.</p>
-        </div>
-      </footer>
-    </div>
-  );
-};
+                {/* Footer */}
+        <footer className="footer">
+          <div className="container">
+            <div className="footer-content">
+              <div className="footer-section">
+                <h4>Contact Us</h4>
+                <address>
+                  3/F Fern Building, Sampaloc, Manila<br />
+                  <br />
+                  <a href="tel:+1234567890">(123) 456-7890</a><br />
+                  <a href="mailto:info@seagolddorm.com">info@seagolddorm.com</a>
+                </address>
+              </div>
+              
+              <div className="footer-section">
+                <h4>Quick Links</h4>
+                <ul className="footer-links">
+                  <li><Link to="/about">About Us</Link></li>
+                  <li><Link to="/gallery">Photo Gallery</Link></li>
+                  <li><Link to="/contact">Contact</Link></li>
+                  <li><Link to="/faq">FAQ</Link></li>
+                </ul>
+              </div>
+              
+              <div className="footer-section">
+                <h4>Connect With Us</h4>
+                <div className="social-links">
+                  <a href="https://facebook.com" aria-label="Facebook">
+                    <i className="fab fa-facebook"></i>
+                  </a>
+                  <a href="https://instagram.com" aria-label="Instagram">
+                    <i className="fab fa-instagram"></i>
+                  </a>
+                  <a href="https://twitter.com" aria-label="Twitter">
+                    <i className="fab fa-twitter"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            
+            <div className="footer-bottom">
+              <p>&copy; 2024 Seagold Dormitory. All rights reserved.</p>
+              <p className="powered-by">Powered by <strong>DormVision</strong></p>
+            </div>
+          </div>
+        </footer>
+      </div>
+    );
+  };
 
 export default Home;

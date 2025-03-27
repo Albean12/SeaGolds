@@ -362,21 +362,89 @@ button.btn-primary:hover {
 }
 
 /* 📌 Footer */
+/* Footer Styles */
 .footer {
-  background: #1E2022;
-  color: #F9F9F9;
-  padding: 1.5rem;
-  text-align: center;
+  background-color:black;
+  color: #ecf0f1;
+  padding: 3rem 0 1rem;
+  font-size: 0.9rem;
 }
 
-.footer a {
-  color: #FFC857;
+.footer-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.footer-section h4 {
+  color: #f8f9fa;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.footer-section address {
+  font-style: normal;
+  line-height: 1.6;
+}
+
+.footer-section a {
+  color: #bdc3c7;
   transition: color 0.3s;
 }
 
-.footer a:hover {
-  color: #F9F9F9;
-  text-decoration: underline;
+.footer-section a:hover {
+  color: #f8f9fa;
+  text-decoration: none;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.5rem;
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-links a {
+  color: #ecf0f1;
+  font-size: 1.2rem;
+  transition: transform 0.3s;
+}
+
+.social-links a:hover {
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid #34495e;
+  padding-top: 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.powered-by {
+  color: #bdc3c7;
+  font-size: 0.8rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-section {
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* 📍 Seagold Universities Section */
